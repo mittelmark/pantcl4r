@@ -11,4 +11,5 @@ install:
 man/%.Rd: R/%.R
 	Rscript bin/rman.R $<
 vignette:
-	echo "library(pantcl4R);pantcl('vignettes/tutorial.Rmd','inst/doc/tutorial.html')" | Rscript -
+	echo "library(pantcl4R);pantcl('vignettes/tutorial.Rmd','vignettes/tutorial.html')" | Rscript -
+	htmlark vignettes/tutorial.html -o inst/doc/tutorial.html
