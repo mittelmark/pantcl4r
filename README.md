@@ -1,6 +1,6 @@
 # pantcl4R
 
-A R package for literature programming.
+A R package for literate programming.
 
 This package can be used to create reports and manuscripts with embedded
 programming code where the code can be evaluated by the script language or a
