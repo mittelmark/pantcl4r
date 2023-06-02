@@ -1,4 +1,4 @@
-library(Rpkg)
+library(pantcl4R)
 
 x = 2 + 2
 
