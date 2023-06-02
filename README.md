@@ -1,89 +1,47 @@
-# Rpkg
+# pantcl4R
 
-A generic R package template.
+A R package for literature programming.
 
-Just use the green "Use this template" link on top to create your own R-package in Github.
+This package can be used to create reports and manuscripts with embedded
+programming code where the code can be evaluated by the script language or a
+diagram, charting or diagramming tool and the output will  be embedded in the final manuscript.
 
-You need to edit thereafter at least two files where your place the right
-package name and change the other relevant information like author, license
-etc.
+This is a small scale alternative to Sweave, Rmarkdown, Knitr etc.
 
-* DESCRIPTION
-* tests/test-add.R
+It allows the embedding for the following programming languages and tools:
 
-If you do not want to create a package vignette just remove the entry in the
-description file with the vignette information, so the lines starting with
-`Suggests:` and `VignetteBuilder:`. Your package has then zero dependencies from other R packages.
+Filter documentation:
 
+- [filter-abc](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-abc.html) - visualize [ABC music notation](https://abcnotation.com/)
+- [filter-cmd](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-cmd.html) - execute shell scripts for instance [Lilypond music scripts](http://lilypond.org/), [GraphViz](https://www.graphviz.org) scripts, Python, Lua, R scripts, [sqlite3](https://www.sqlite.org) scripts, or code for languages like  C, C++, Go, Rust, V  etc.
+- [filter-dot](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-dot.html) - [GraphViz dot](https://www.graphviz.org) filter
+- [filter-emf](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-emf.html) - [Jasspa MicroEmacs macros](http://www.jasspa.com) filter
+- [filter-eqn](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-eqn.html) - visualize mathematical equations using eqn2graph, see here [Guide for typesetting using eqn](https://lists.gnu.org/archive/html/groff/2013-10/pdfTyBN2VWR1c.pdf)
+- [filter-julia](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-julia.html) - statistical language Julia (slow for embedding, use R instead) [Julia Website](https://julialang.org/)
+- [filter-kroki](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-kroki.html) - visualize diagram code using the [kroki webservice](https://kroki.io)
+- [filter-mmd](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-mmd.html) - visualize diagram code using the [mermaid command line tool](https://github.com/mermaidjs/mermaid.cli)
+- [filter-mtex](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-mtex.html) - visualize mathematical equations using LaTeX
+- [filter-pic](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-pic.html) - visualize diagram and flowcharts using the [PIC language](https://en.wikipedia.org/wiki/PIC_(markup_language))
+- [filter-pik](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-pik.html) - visualize diagram code or flowcharts uing [pikchr](https://fossil-scm.org/home/doc/trunk/www/pikchr.md) or [fossil](https://fossil-scm.org/home/doc/trunk/www/index.wiki)
+- [filter-pipe](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-pipe.html) - embed R, Python or Octave code or plots into Markdown
+- [filter-puml](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-puml.html) - embed [PlantUML](http://www.plantuml.com) code
+- [filter-rplot](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-rplot.html) - embed R plots
+- [filter-sqlite](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-sqlite.html) - embed [Sqlite3 SQL database](https://www.sqlite.org) statements
+- [filter-tcl](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-tcl.html) - embed Tcl statements
+- [filter-tcrd](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-tcrd.html) - embed Tcl music chords.
+- [filter-tdot](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-tdot.html) - embed Tcl GraphViz diaragrams
+- [filter-tsvg](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-tsvg.html) - embed Tcl created SVG code
 
 ## Build and Install test
 
-To build, check and install this package you need only an installed R. If you
-create your repository you have to change the relevant parts entering, package
-name, author etc in the description file and the library call in the file
-tests/test-add.R. Then you can start a first check if the package is
-installable.
-
+To build, check and install this package you need only an installed R instance and the remotes library.
 
 The commands are the following:
 
 ```
-R CMD build .                   # creates a tar.gz file
-R CMD check pkgname_0.1.tar.gz  # replace pkgname with your name
+library(remotes)
+remotes::install_github("https://github.com/mittelmark/pantcl4R")
 ```
-
-## Documenting your code
-
-If this is all ok, you can start entering your own code and update your documentation and tests. The template provides as well a simple R script which copies the documentation out of the R-files into the man-directory. If you do not like this approach of combining the documentation with the code in one file you can as well just skip this file and create directly your own Rd-files. The documentation out of the R files is extracted like this:
-
-```
-Rscript bin/rman.R R/add.R
-```
-
-This approach, embedding the documentation in the R file and then extracting
-it into the man-folder is very similar to that of the documentation tool
-[roxygen2](https://cran.r-project.org/web/packages/roxygen2/index.html), but
-here you do not need the roxygen2 package with all the dependencies, just this simple extraction script
-`bin/rman.R`. 
-
-## Makefile
-
-There is as well a Makefile file which provides the necessary commands to
-build and install the package and which does as well a check if the R file is
-newer than the Rd file and only then does the required update. If you use make
-you can then simple write:
-
-```
-make check VERSION=0.1
-```
-
-if your version number is 0.1.
-
-If you do not use make just execute the required commands manually in the terminal.
-
-```
-Rscript bin/rman.R R/add.R
-R CMD build .
-R CMD check pkgname_version.tar.gz
-R CMD INSTALL pkgname_version.tar.gz
-```
-
-## Files
-
-The following files are included in this package template and will be required for the package installation:
-
-* `DESCRIPTION` - the file containing the essential information about your package
-* `NAMESPACE` - the file containing the export statements, usually all functions with lower case methods are exported
-* `LICENSE` - license files can be replaced if you prefere other licenses, such as GPL or BSD
-* `R/add.R` - example R code file with embedded documentation
-* `man/add.Rd` - example R documentation file 
-
-The following files are usually not part of your package:
-
-* `Makefile` - a file for make containing essential commands to build and check the package, should be not part of the installed package, but might be helpful during development
-* `bin/rman.R` - simple R script to extract documentation from the R files, can be used for your own package instead of using roxygen2 documentation, if you edit the files in the `man` folder directly you do not need this file
-* `README.md` - this Readme your are reading, should be not part of your package, replace it wiht your own Readme file
-
 
 ## Author and Copyright
 
