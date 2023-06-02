@@ -6,7 +6,9 @@ This package can be used to create reports and manuscripts with embedded
 programming code where the code can be evaluated by the script language or a
 diagram, charting or diagramming tool and the output will  be embedded in the final manuscript.
 
-This is a small scale alternative to Sweave, Rmarkdown, Knitr etc.
+This is a small scale alternative to Sweave, Rmarkdown, Knitr etc. It is
+essentially a wrapper for the [pantcl](https://github.com/mittelmark/pantcl)
+which does not need an installed version of pandoc or any other R package.
 
 It allows the embedding for the following programming languages and tools:
 
