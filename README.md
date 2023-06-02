@@ -34,11 +34,21 @@ Filter documentation:
 - [filter-tdot](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-tdot.html) - embed Tcl GraphViz diaragrams
 - [filter-tsvg](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-tsvg.html) - embed Tcl created SVG code
 
+## Commands
+
+There are essentially three commands:
+
+* `pantcl` - converting Rmarkdown documents with embedded code to HTML
+* `ptangle` - extract programming code into script files from  the Markdown document
+* `pangui` - simple graphical  interface to edit abc music, Graphviz dot, Eqn equations,  Mermaid diagrams,  Pikchr and Pic code, Plantuml code, R-plots and Tcl-svg or Tcl-dot code
+
+Below you see an image of the graphical  tool:
+
+![](images/filter-view.png)
+
 ## Build and Install test
 
-To build, check and install this package you need only an installed R instance and the remotes library.
-
-The commands are the following:
+To install this package you need only an installed R instance and the remotes library.
 
 ```
 library(remotes)
