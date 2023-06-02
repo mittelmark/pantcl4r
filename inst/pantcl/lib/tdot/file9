@@ -1,9 +1,0 @@
-strict digraph G {
-graph[margin=0.4];
-  node[style=filled, fillcolor=salmon, shape=hexagon];
-  A -> B;
-  A[label="tdot", comment="Hello Canvas"];
-  B[label="Hello World!"];
-
-}
-
