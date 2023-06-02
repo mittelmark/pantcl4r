@@ -1,0 +1,17 @@
+strict digraph G {
+graph[margin=0.2];
+  node[width=1, height=0.7, style=filled, fillcolor=salmon, shape=box];
+{
+rank=same; A; B; C;
+}
+  A -> B;
+  A[label="Hello"];
+  B[label="World", fillcolor=skyblue];
+
+edge[dir=back];
+  B -> C;
+  C[label="Powered by
+ tdot"];
+
+}
+

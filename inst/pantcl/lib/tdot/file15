@@ -1,0 +1,6 @@
+strict digraph G {
+graph[layout=circo];
+  A -> B -> C -> D -> A;
+
+}
+

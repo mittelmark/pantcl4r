@@ -1,0 +1,13 @@
+digraph G  {
+  node[style=filled, fillcolor=skyblue];
+
+    dir1 -> CVS;
+    dir1 -> src -> doc;
+    dir1 -> vfs-> bin;
+    vfs -> config -> ps;
+    config -> pw -> pure;
+    vfs -> step1 -> substep;
+    dir1 -> www -> cgi;
+  
+}
+

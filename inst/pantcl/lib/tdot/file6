@@ -1,0 +1,14 @@
+graph G  {
+  node[style=filled, fillcolor=skyblue];
+
+     run -- intr;
+     intr -- runbl;
+     runbl -- run;
+     run -- kernel;
+     kernel -- zombie;
+     kernel -- sleep;
+     kernel -- runmem;
+     runmem[label="run\nmem"];
+  
+}
+

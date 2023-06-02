@@ -1,0 +1,6 @@
+strict digraph G {
+  A[label="Hello World!
+tdot", shape=box, fillcolor=grey90, style=filled];
+
+}
+

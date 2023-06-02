@@ -1,0 +1,6 @@
+strict digraph G {
+graph[rankdir=LR];
+  A -> B -> C -> D -> A;
+
+}
+
