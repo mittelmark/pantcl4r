@@ -1,13 +1,16 @@
 ---
 title: "Vignette for the package ..."
 author: Max Musterman
-date: 2023-02-05
-output: 
-    rmarkdown::html_vignette:
-        toc: true
+date: 2023-06-01
+pipe:
+    pipe: R
+    eval: 1
+tcl:
+    eval: 1
+        
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{pantcl4R::pantcl}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -27,23 +30,45 @@ print(x)
 ## Plot example
 
 ```{r fig=TRUE,fig.width=9,fig.height=6}
+png("inst/doc/iris.png",width=800,height=500)
 data(iris)
 par(mfrow=c(1,2),mai=rep(0.8,4))
 plot(iris$Sepal.Width~iris$Sepal.Length,
     col=as.numeric(iris$Species)+1,pch=15)
 plot(iris$Petal.Width~iris$Petal.Length,
     col=as.numeric(iris$Species)+1,pch=15)
+dev.off()
 ```
+
+![](iris.png)
 
 ## Table Example
 
 ```{r results="asis"}
-knitr::kable(head(iris))
+df2md(head(iris))
 ```
 
 ## Inline expression
 
 The dataset iris has `r nrow(iris)` plants.
+
+```{.dot eval=true}
+digraph { 
+    node[style=filled,fillcolor=skyblue];
+    rankdir="LR";
+    A -> B; 
+}
+```
+
+```{.puml eval=true}
+@startuml
+class A { }
+class B { }
+class C { }
+A -> B 
+B - C
+@enduml
+```
 
 ## EOF
 
