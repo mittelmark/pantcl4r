@@ -95,6 +95,60 @@ ptangle <- function(infile, outfile=NULL,type="r",quiet=FALSE) {
     #knitr::purl(file, encoding = encoding, quiet = quiet, ...)
 }
 
+#' \name{pangui}
+#' \alias{pangui}
+#' \title{ start a graphical user interface }
+#' \description{
+#'     A function which start a graphical  user interface to write graphical code chunks.
+#' }
+#' \usage{ pangui(infile=NULL,quiet=FALSE) }
+#' \arguments{
+#'   \item{infile}{
+#'     an infile to be edited with  the graphical interface, default: NULL
+#'   }
+#'   \item{quiet}{
+#'     should messages been hidden, default: FALSE
+#'   }
+#' }
+#' \details{
+#'     Some more details ...
+#' }
+#' \examples{
+#'   pangui()
+#' }
+
+pangui <- function(infile=NULL,quiet=FALSE) {
+    
+    if (!is.null(infile)) {
+        stopifnot(file.exists(infile))
+    }
+    pan = tcltk::tclvalue(tcltk::.Tcl("info commands ::pantcl::*"))
+    if (pan != "") {
+        message("Eventually you must restart R to restart the interface?")
+        tcltk::.Tcl("after 1000 [list wm deiconify .]")
+        return()
+    } else {
+        tcltk::.Tcl("set ::quiet true")
+        tcltk::.Tcl("set ::runGui true")    
+        if (!is.null(infile)) {
+            cmdline = paste("set ::argv [list",infile,"--gui]")
+        } else {
+            cmdline = paste("set ::argv --gui")
+        }
+        tcltk::.Tcl("if {[info commands ::exitorig] eq {}} { rename ::exit ::exitorig ; }; proc ::exit {args} { wm withdraw . }")
+    
+        tcltk::.Tcl(cmdline)
+        tcltk::.Tcl(paste("source",file.path(system.file(package="pantcl4R"),"pantcl", "pantcl.tcl")))
+        tcltk::.Tcl("after 1000 [list wm deiconify .]")
+        if (!quiet) {
+            message(paste("Running graphical user interface .."))
+        }
+        return()
+    }
+}
+
+
+
 .onLoad <- function(libname, pkgname) {
     # to show a startup message
     tcltk::.Tcl(paste("lappend auto_path",file.path(system.file(package="pantcl4R"),"pantcl", "lib")))
