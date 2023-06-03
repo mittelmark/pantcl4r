@@ -46,7 +46,7 @@ Below you see an image of the graphical  tool:
 
 ![](images/filter-view.png)
 
-## Build and Install test
+## Build and Install
 
 To install this package you need only an installed R instance and the remotes library.
 
