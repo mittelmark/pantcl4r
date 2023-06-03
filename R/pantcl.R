@@ -130,6 +130,7 @@ pangui <- function(infile=NULL,quiet=FALSE) {
     } else {
         tcltk::.Tcl("set ::quiet true")
         tcltk::.Tcl("set ::runGui true")    
+        tcltk::.Tcl("set ::runninginR true")            
         if (!is.null(infile)) {
             cmdline = paste("set ::argv [list",infile,"--gui]")
         } else {
