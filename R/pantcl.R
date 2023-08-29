@@ -41,7 +41,7 @@ pantcl <- function (infile, outfile=NULL,css=NULL,quiet=FALSE) {
     tcltk::.Tcl("set ::quiet true")
     tcltk::.Tcl("if {[info commands ::exitorig] eq {}} {  rename ::exit ::exitorig ; }; proc ::exit {args} { return }")
     tcltk::.Tcl(cmdline)
-    tcltk::.Tcl(paste("source",file.path(system.file(package="pantcl4R"),"pantcl", "pantcl.tcl")))
+    tcltk::.Tcl(paste("source",file.path(system.file(package="pantcl4r"),"pantcl", "pantcl.tcl")))
     if (!quiet) {
         message(paste("Processing",infile,"to",outfile,"done!"))
     }
