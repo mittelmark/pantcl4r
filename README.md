@@ -1,4 +1,4 @@
-# pantcl4R
+# pantcl4r
 
 A R package for literate programming.
 
