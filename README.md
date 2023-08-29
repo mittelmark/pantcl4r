@@ -52,7 +52,7 @@ To install this package you need only an installed R instance and the remotes li
 
 ```
 library(remotes)
-remotes::install_github("https://github.com/mittelmark/pantcl4R")
+remotes::install_github("https://github.com/mittelmark/pantcl4r")
 ```
 
 ## Author and Copyright
@@ -63,4 +63,4 @@ License: MIT License see the file [LICENSE](LICENSE) for details.
 
 ## Bug reporting
 
-In case of bugs and suggestions, use the [issues](https://github.com/mittelmark/pantcl4R/issues) link on top.
+In case of bugs and suggestions, use the [issues](https://github.com/mittelmark/pantcl4r/issues) link on top.
