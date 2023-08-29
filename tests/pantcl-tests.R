@@ -1,4 +1,4 @@
-library(pantcl4R)
+library(pantcl4r)
 
 x = 2 + 2
 
