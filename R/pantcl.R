@@ -114,7 +114,9 @@ ptangle <- function(infile, outfile=NULL,type="r",quiet=FALSE) {
 #'     Some more details ...
 #' }
 #' \examples{
+#' \dontrun{
 #'   pangui()
+#' }
 #' }
 
 pangui <- function(infile=NULL,quiet=FALSE) {
