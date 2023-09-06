@@ -87,7 +87,7 @@ ptangle <- function(infile, outfile=NULL,type="r",quiet=FALSE) {
     cmdline = paste("set ::argv [list",infile, outfile,"--tangle",type,"]")
     tcltk::.Tcl("if {[info commands ::exitorig] eq {}} {  rename ::exit ::exitorig ; }; proc ::exit {args} { return }")
     tcltk::.Tcl(cmdline)
-    tcltk::.Tcl(paste("source",file.path(system.file(package="pantcl4R"),"pantcl", "pantcl.tcl")))
+    tcltk::.Tcl(paste("source",file.path(system.file(package="pantcl4r"),"pantcl", "pantcl.tcl")))
     if (!quiet) {
         message(paste("Extracting code from",infile,"to",outfile,"done!"))
     }
@@ -139,7 +139,7 @@ pangui <- function(infile=NULL,quiet=FALSE) {
         tcltk::.Tcl("if {[info commands ::exitorig] eq {}} { rename ::exit ::exitorig ; }; proc ::exit {args} { wm withdraw . }")
     
         tcltk::.Tcl(cmdline)
-        tcltk::.Tcl(paste("source",file.path(system.file(package="pantcl4R"),"pantcl", "pantcl.tcl")))
+        tcltk::.Tcl(paste("source",file.path(system.file(package="pantcl4r"),"pantcl", "pantcl.tcl")))
         tcltk::.Tcl("after 1000 [list wm deiconify .]")
         if (!quiet) {
             message(paste("Running graphical user interface .."))
@@ -152,7 +152,7 @@ pangui <- function(infile=NULL,quiet=FALSE) {
 
 .onLoad <- function(libname, pkgname) {
     # to show a startup message
-    tcltk::.Tcl(paste("lappend auto_path",file.path(system.file(package="pantcl4R"),"pantcl", "lib")))
+    tcltk::.Tcl(paste("lappend auto_path",file.path(system.file(package="pantcl4r"),"pantcl", "lib")))
     tcltk::.Tcl("package require tclfilters")
     tools::vignetteEngine("pantcl",package=pkgname,weave=pantcl,tangle=ptangle)
 }
