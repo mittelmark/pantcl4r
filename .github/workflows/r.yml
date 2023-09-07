@@ -41,6 +41,7 @@ jobs:
             wget https://github.com/mittelmark/pantcl4r/files/12549351/pantcl4r_0.2.0.tar.gz
             R CMD INSTALL pantcl4r_0.2.0.tar.gz
             rm pantcl4r_0.2.0.tar.gz
+            mkdir build            
       - name: Install R package dependencies and check package
         run: |
             install.packages(c("remotes", "rcmdcheck","tcltk"));
@@ -51,10 +52,8 @@ jobs:
             pkg=tools:::.get_package_metadata(".")[["Package"]]
             install.packages(paste(pkg,"_",version,".tar.gz",sep=""),repos=NULL)
         shell: Rscript {0}
-      - name: Upload build
+      - name: Upload package build
         uses: actions/upload-artifact@v3
-        run: |
-            mkdir build
         with:
             name: pantcl4r_0.2.0.tar.gz
             path: build/pantcl4r_0.2.0.tar.gz
