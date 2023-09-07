@@ -40,12 +40,10 @@ jobs:
         run: |
             wget https://github.com/mittelmark/pantcl4r/files/12549351/pantcl4r_0.2.0.tar.gz
             R CMD INSTALL pantcl4r_0.2.0.tar.gz
-      - name: Install dependencies
+      - name: Install dependencies and check package
         run: |
-          tools:::.build_packages(".")
-          install.packages(c("remotes", "rcmdcheck","tcltk"))
-          remotes::install_deps(dependencies = TRUE)
-        shell: Rscript {0}
-      - name: Check
-        run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
+            install.packages(c("remotes", "rcmdcheck","tcltk"));
+            remotes::install_deps(dependencies = TRUE);
+            tools:::.build_packages(".");
+            rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error");
         shell: Rscript {0}
