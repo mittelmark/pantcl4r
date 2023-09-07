@@ -44,7 +44,7 @@ There are essentially three commands:
 
 Below you see an image of the graphical  tool:
 
-![](images/filter-view.png)
+![](https://user-images.githubusercontent.com/75636/266270712-d6810a37-e50e-4105-833f-96467ea4d552.png)
 
 ## Build and Install
 
