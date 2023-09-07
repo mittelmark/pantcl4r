@@ -260,6 +260,7 @@ proc ::pantcl::tangle {args} {
     } else {
         set type [regsub --  {^\.} $type ""]
     }
+    set type [regsub {md$} $type ""]
     if {$outfile ni [list stdout -]} {
         set out [open $outfile w 0600]
     } else {

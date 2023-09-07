@@ -4,7 +4,7 @@
 \description{ 
     A function which calls the pantcl application inside of a R package. 
 } 
-\usage{ pantcl(infile, outfile=NULL, css=NULL,quiet=FALSE) } 
+\usage{ pantcl(infile, outfile=NULL, css=NULL,quiet=FALSE, ...) } 
 \arguments{ 
   \item{infile}{ 
     an infile with Markdown code and embedded Programming language code 
@@ -18,6 +18,7 @@
   \item{quiet}{ 
     should messages been hidden, default: FALSE 
   } 
+  \item{\ldots}{kept for compatibility with pandoc, not used currently } 
 } 
 \details{ 
     Some more details ... 

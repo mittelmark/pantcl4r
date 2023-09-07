@@ -1,5 +1,5 @@
 ---
-title: "Vignette for the package ..."
+title: Vignette for the pantcl4r package
 author: Max Musterman
 date: 2023-06-01
 pipe:
@@ -9,13 +9,13 @@ tcl:
     eval: 1
         
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
-  %\VignetteEngine{pantcl4r::pantcl}
+  %\VignetteIndexEntry{Vignette for the pantcl4r package}
+  %\VignetteEngine{pantcl4r}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r echo=FALSE,results="hide"}
-library(knitr)
+```{r}
+library(pantcl4r)
 ```
 
 ## Introduction

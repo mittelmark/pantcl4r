@@ -4,7 +4,7 @@
 \description{ 
     A function which extracts code chunks from Markdown documents. 
 } 
-\usage{ ptangle(infile, outfile=NULL, type="r",quiet=FALSE) } 
+\usage{ ptangle(infile, outfile=NULL, type="r",quiet=FALSE,...) } 
 \arguments{ 
   \item{infile}{ 
     an infile with Markdown code and embedded Programming language code 
@@ -18,6 +18,7 @@
   \item{quiet}{ 
     should messages been hidden, default: FALSE 
   } 
+  \item{\ldots}{kept for compatibility with pandoc, not used currently} 
 } 
 \details{ 
     Some more details ... 

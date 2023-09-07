@@ -10,7 +10,7 @@ tcl:
         
 vignette: >
   %\VignetteIndexEntry{pantcl4r - Python example}
-  %\VignetteEngine{pantcl4r::pantcl}
+  %\VignetteEngine{pantcl4r}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -19,6 +19,7 @@ vignette: >
 Below you find example code for the package pantcl4r
 
 ```{r}
+library(pantcl4r)
 x=1
 print(x)
 ```
