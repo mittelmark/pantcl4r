@@ -55,5 +55,5 @@ jobs:
       - name: Upload package build
         uses: actions/upload-artifact@v3
         with:
-            name: pantcl4r_{{ env.version }}.tar.gz
-            path: pantcl4r_{{ env.version }}.tar.gz
+            name: pantcl4r_${{ env.version }}.tar.gz
+            path: pantcl4r_${{ env.version }}.tar.gz
