@@ -18,6 +18,7 @@
 #'   \item{quiet}{
 #'     should messages been hidden, default: FALSE
 #'   }
+#'   \item{encoding}{kept for compatibility with pandoc, not used currently, default: NULL }
 #' }
 #' \details{
 #'     Some more details ...
@@ -28,7 +29,7 @@
 #'   pantcl("hello.Rmd","hello.html")
 #' }
 
-pantcl <- function (infile, outfile=NULL,css=NULL,quiet=FALSE) {
+pantcl <- function (infile, outfile=NULL,css=NULL,quiet=FALSE,encoding=NULL) {
     stopifnot(file.exists(infile))
     if (is.null(outfile)) {
         outfile=gsub("\\..md",".html")
