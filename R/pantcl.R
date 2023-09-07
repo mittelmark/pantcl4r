@@ -36,7 +36,7 @@ pantcl <- function (infile, outfile=NULL,css=NULL,quiet=FALSE) {
     if (!is.null(css)) {
         cmdline = paste("set ::argv [list",infile, outfile,"--css",css,"--no-pandoc]")        
     } else {
-        cmdline = paste("set ::argv [list",infile, outfile,"--no-pandoc]")
+        cmdline = paste("set ::argv [list",infile, outfile,"--no-pandoc --inline true]")
     }
     tcltk::.Tcl("set ::quiet true")
     tcltk::.Tcl("if {[info commands ::exitorig] eq {}} {  rename ::exit ::exitorig ; }; proc ::exit {args} { return }")
@@ -156,7 +156,10 @@ pangui <- function(infile=NULL,quiet=FALSE) {
     # to show a startup message
     tcltk::.Tcl(paste("lappend auto_path",file.path(system.file(package="pantcl4r"),"pantcl", "lib")))
     tcltk::.Tcl("package require tclfilters")
-    tools::vignetteEngine("pantcl",package=pkgname,weave=pantcl,tangle=ptangle)
+    tools::vignetteEngine("pantcl",
+                          package=pkgname,
+                          weave=pantcl,
+                          tangle=ptangle,pattern="[.][PpTtRr]md$")
 }
 
 
