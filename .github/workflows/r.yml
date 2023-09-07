@@ -43,9 +43,6 @@ jobs:
       - name: Install dependencies
         run: |
           tools:::.build_packages(".")
-          version=tools:::.get_package_metadata(".")[["Version"]]
-          pkg=tools:::.get_package_metadata(".")[["Package"]]
-          install.packages(paste(pkg,"_",version,".tar.gz",sep=""),repos=NULL)
           install.packages(c("remotes", "rcmdcheck","tcltk"))
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
