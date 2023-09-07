@@ -40,7 +40,7 @@ plot(iris$Petal.Width~iris$Petal.Length,
 dev.off()
 ```
 
-![](../iris.png)
+![](iris.png)
 
 ## Table Example
 
