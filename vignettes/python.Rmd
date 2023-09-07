@@ -1,7 +1,7 @@
 ---
-title: "Vignette for the package ..."
+title: pantcl4r - Python example
 author: Max Musterman
-date: 2023-06-01
+date: 2023-09-06
 pipe:
     pipe: R
     eval: 1
@@ -9,18 +9,14 @@ tcl:
     eval: 1
         
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{pantcl4r - Python example}
   %\VignetteEngine{pantcl4r::pantcl}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r echo=FALSE,results="hide"}
-library(knitr)
-```
-
 ## Introduction
 
-Below you find example code for the package...
+Below you find example code for the package pantcl4r
 
 ```{r}
 x=1
@@ -69,6 +65,12 @@ class C { }
 A -> B 
 B - C
 @enduml
+```
+
+## Python example
+
+```{.pipe pipe="python3" eval=TRUE}
+print("Hello Python 2023")
 ```
 
 ## EOF
