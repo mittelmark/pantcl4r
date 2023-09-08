@@ -34,8 +34,7 @@ jobs:
         if: runner.os == 'macOS'
         run: |
             make github-mac-install
-            open -a XQuartz &
-            DISPLAY=:0:0 make github-mac-run
+            make github-mac-run
       - name: Upload package build
         uses: actions/upload-artifact@v3
         with:

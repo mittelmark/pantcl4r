@@ -22,11 +22,13 @@ github-mac-install:
 	#brew install R
 github-mac-run:	
 	wget https://github.com/mittelmark/pantcl4r/files/12549351/pantcl4r_0.2.0.tar.gz
-	R CMD INSTALL pantcl4r_0.2.0.tar.gz
+        open -a XQuartz & 
+        DISPLAY=:0.0 xeyes &
+        DISPLAY=:0.0 R CMD INSTALL pantcl4r_0.2.0.tar.gz
 	rm pantcl4r_0.2.0.tar.gz
 	Rscript -e "install.packages(c(\"remotes\", \"rcmdcheck\",\"tcltk\"));"
 	Rscript -e "remotes::install_deps(dependencies = TRUE);"
-	Rscript -e "tools:::.build_packages('.');"
+	DISPLAY=:0.0 Rscript -e "tools:::.build_packages('.');"
 	Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error');"
-	Rscript -e "install.packages('$(PKG)_$(VERSION).tar.gz',repos=NULL);"
+	DISPLAY=:0.0 Rscript -e "install.packages('$(PKG)_$(VERSION).tar.gz',repos=NULL);"
 	# export DISPLAY=:99.0
