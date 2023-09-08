@@ -15,11 +15,12 @@ vignette:
 	cp vignettes/tutorial.html inst/doc/tutorial.html
 	echo "library(pantcl4r);pantcl('vignettes/python.Rmd','vignettes/python.html')" | Rscript -
 	cp vignettes/python.html inst/doc/python.html
-github-mac:
+github-mac-install:
 	brew install xquartz
 	brew install graphviz
 	brew install plantuml
-	brew install R
+	#brew install R
+github-mac-run:	
 	wget https://github.com/mittelmark/pantcl4r/files/12549351/pantcl4r_0.2.0.tar.gz
 	R CMD INSTALL pantcl4r_0.2.0.tar.gz
 	rm pantcl4r_0.2.0.tar.gz

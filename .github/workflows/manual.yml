@@ -33,9 +33,8 @@ jobs:
       - name: Install X11 and other dependencies on MacOS  
         if: runner.os == 'macOS'
         run: |
-            export DISPLAY=:99
-            sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &        
-            make github-mac
+            github-mac-install
+            Xvfb :1337 & export DISPLAY=:1337 & make github-mac-run
       - name: Upload package build
         uses: actions/upload-artifact@v3
         with:
