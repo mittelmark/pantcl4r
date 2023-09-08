@@ -28,11 +28,12 @@ jobs:
           echo "puts [set tcl_patchLevel]" | tclsh
           Rscript --version
           python --version
+          pwd
           mkdir R
           Rscript -e 'install.packages(c("knitr","rmarkdown"),repos="https://cran.us.r-project.org",lib="R");'
           git clone https://github.com/mittelmark/snha.git
           cd snha
-          export R_LIBS=`getwd`/../R
+          export R_LIBS=`pwd`/../R
           ls -l ../R
           make build
           make check
