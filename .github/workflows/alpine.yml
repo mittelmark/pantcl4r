@@ -14,5 +14,8 @@ jobs:
       - uses: jirutka/setup-alpine@v1
         with:
           branch: v3.15
+          packages: >
+            tcl
+            tk
       - run: cat /etc/alpine-release
-        shell: alpine.sh {0}Makefile  
+        shell: alpine.sh {0}
