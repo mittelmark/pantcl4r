@@ -13,9 +13,12 @@ jobs:
     steps:
       - uses: jirutka/setup-alpine@v1
         with:
-          branch: v3.15
+          branch: v3.18
           packages: >
             tcl
             tk
-      - run: cat /etc/alpine-release
+      - run: |
+          cat /etc/alpine-release
+          ls -l
+          echo "parray tcl_platform" | tclsh
         shell: alpine.sh {0}
