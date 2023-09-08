@@ -1,0 +1,18 @@
+name: Alpine-Linux
+
+on:
+    workflow_dispatch:
+        branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: jirutka/setup-alpine@v1
+        with:
+          branch: v3.15
+      - run: cat /etc/alpine-release
+        shell: alpine.sh {0}Makefile  
