@@ -22,6 +22,7 @@ jobs:
             R-dev
             python3
             make
+            xvfb-run
       - run: |
           cat /etc/alpine-release
           ls -l
@@ -30,6 +31,8 @@ jobs:
           Rscript --version
           python3 --version
           pwd
+          xvvb-run :99 -ac -screen 0 1024x768x8 & 
+          export DISPLAY=":99"
           mkdir R
           Rscript -e 'install.packages("MASS",repos="http://cran.us.r-project.org",lib="R");'
           git clone https://github.com/mittelmark/pantcl4r.git
