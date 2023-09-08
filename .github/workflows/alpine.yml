@@ -26,4 +26,8 @@ jobs:
           echo "parray tcl_platform" | tclsh
           echo "puts [set tcl_patchLevel]" | tclsh
           Rscript --version
+          git clone https://github.com/mittelmark/snha.git
+          cd snha
+          make build
+          make check
         shell: alpine.sh {0}
