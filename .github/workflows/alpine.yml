@@ -30,7 +30,7 @@ jobs:
           python --version
           pwd
           mkdir R
-          Rscript -e 'install.packages(c("knitr","rmarkdown"),repos="https://cran.us.r-project.org",lib="R");'
+          Rscript -e 'install.packages(c("knitr","rmarkdown"),repos="http://cran.us.r-project.org",lib="R");'
           git clone https://github.com/mittelmark/snha.git
           cd snha
           export R_LIBS=`pwd`/../R
