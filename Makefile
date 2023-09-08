@@ -15,3 +15,19 @@ vignette:
 	cp vignettes/tutorial.html inst/doc/tutorial.html
 	echo "library(pantcl4r);pantcl('vignettes/python.Rmd','vignettes/python.html')" | Rscript -
 	cp vignettes/python.html inst/doc/python.html
+github-mac:
+	brew install xquartz
+	brew install graphviz
+        brew install plantuml
+        brew install R
+	wget https://github.com/mittelmark/pantcl4r/files/12549351/pantcl4r_0.2.0.tar.gz
+        export DISPLAY=:99.0 && R CMD INSTALL pantcl4r_0.2.0.tar.gz
+	rm pantcl4r_0.2.0.tar.gz
+	Rscript -e "install.packages(c(\"remotes\", \"rcmdcheck\",\"tcltk\"));"
+	Rscript -e "remotes::install_deps(dependencies = TRUE);"
+	Rscript -e "tools:::.build_packages('.');"
+        Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error');"
+        export DISPLAY=:99.0 && Rscript -e "install.packages(paste($(PKG),'_',$(VERSION),'.tar.gz',sep=''),repos=NULL);"
+
+
+	
