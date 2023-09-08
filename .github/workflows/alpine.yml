@@ -20,12 +20,14 @@ jobs:
             git
             R
             python3
+            make
       - run: |
           cat /etc/alpine-release
           ls -l
           echo "parray tcl_platform" | tclsh
           echo "puts [set tcl_patchLevel]" | tclsh
           Rscript --version
+          python --version
           git clone https://github.com/mittelmark/snha.git
           cd snha
           make build
