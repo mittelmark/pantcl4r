@@ -34,7 +34,8 @@ jobs:
         if: runner.os == 'macOS'
         run: |
             make github-mac-install
-            Xvfb :1337 & export DISPLAY=:1337 & make github-mac-run
+            open -a XQuartz &
+            DISPLAY=:0:0 make github-mac-run
       - name: Upload package build
         uses: actions/upload-artifact@v3
         with:
