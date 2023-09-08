@@ -32,8 +32,8 @@ jobs:
           pwd
           mkdir R
           Rscript -e 'install.packages("MASS",repos="http://cran.us.r-project.org",lib="R");'
-          git clone https://github.com/mittelmark/snha.git
-          cd snha
+          git clone https://github.com/mittelmark/pantcl3r.git
+          cd pantcl4r
           export R_LIBS=`pwd`/../R
           ls -l ../R
           export _R_CHECK_FORCE_SUGGESTS_=0
