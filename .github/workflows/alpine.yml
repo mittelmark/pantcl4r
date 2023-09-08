@@ -36,6 +36,6 @@ jobs:
           cd snha
           export R_LIBS=`pwd`/../R
           ls -l ../R
-          R CMD build --no-build-vignettes
-          R CMD check --no-build-vignettes
+          R CMD build . --no-build-vignettes
+          R CMD check . --no-build-vignettes
         shell: alpine.sh {0}
