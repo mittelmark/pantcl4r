@@ -27,5 +27,5 @@ github-mac:
 	Rscript -e "remotes::install_deps(dependencies = TRUE);"
 	Rscript -e "tools:::.build_packages('.');"
 	Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error');"
-	Rscript -e "install.packages(paste($(PKG),'_$(VERSION).tar.gz',sep=''),repos=NULL);"
+	Rscript -e "install.packages('$(PKG)_$(VERSION).tar.gz',repos=NULL);"
 	# export DISPLAY=:99.0
