@@ -1,5 +1,5 @@
 ^\.git$
 ^\.github$
-^\.\.Rcheck$
-^\.Rbuildignore~$
+^pantcl4r\.Rcheck$
+^\.Rbuildignore$
 ^Makefile$
