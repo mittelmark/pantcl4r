@@ -19,6 +19,7 @@ jobs:
             tk
             git
             R
+            R-dev
             python3
             make
       - run: |
