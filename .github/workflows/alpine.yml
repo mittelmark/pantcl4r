@@ -31,6 +31,7 @@ jobs:
           python3 --version
           pwd
           mkdir R
+          Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/cachem_1.0.8.tar.gz",repos=NULL,lib="R")'
           Rscript -e 'install.packages(c("knitr","rmarkdown","MASS"),repos="http://cran.us.r-project.org",lib="R");'
           git clone https://github.com/mittelmark/snha.git
           cd snha
