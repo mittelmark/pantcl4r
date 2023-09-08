@@ -33,7 +33,7 @@ jobs:
       - name: Install X11 and other dependencies on MacOS  
         if: runner.os == 'macOS'
         run: |
-            github-mac-install
+            make github-mac-install
             Xvfb :1337 & export DISPLAY=:1337 & make github-mac-run
       - name: Upload package build
         uses: actions/upload-artifact@v3
