@@ -28,6 +28,7 @@ jobs:
           echo "puts [set tcl_patchLevel]" | tclsh
           Rscript --version
           python --version
+          Rscript -e 'install.packages(c("knitr","rmarkdown"));'
           git clone https://github.com/mittelmark/snha.git
           cd snha
           make build
