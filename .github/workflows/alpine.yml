@@ -28,7 +28,7 @@ jobs:
           echo "parray tcl_platform" | tclsh
           echo "puts [set tcl_patchLevel]" | tclsh
           Rscript --version
-          python --version
+          python3 --version
           pwd
           mkdir R
           Rscript -e 'install.packages(c("knitr","rmarkdown","MASS"),repos="http://cran.us.r-project.org",lib="R");'
