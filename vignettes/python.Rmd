@@ -16,7 +16,21 @@ vignette: >
 
 ## Introduction
 
-Below you find example code for the package pantcl4r
+_pantcl4r_ is a simple R only  package  which uses only standard R packages, so has no
+external dependency except for the tools you might want to integrate into your
+Markdown  document. It is thought as fast simple  drop-in  replacement  for the
+RMarkdown package in cases where you can't install all the required tools and
+packages easily for instance if you are working on a kiosk-mode  computer like
+in the seminar rooms of the  University. It is not fully  compatible  yet with
+R-Markdown so should be mainly used for demonstration purposes.
+
+Below you find example code for the package pantcl4r for different programming
+or diagram  languages  like R, Python,  Tcl, C++,  GraphViz  dot,  PlantUML or
+diagram languages supported by the kroki web service. 
+
+## R examples
+
+Let's start with a simple print statement using R:
 
 ```{r}
 library(pantcl4r)
@@ -24,8 +38,9 @@ x=1
 print(x)
 ```
 
-## Plot example
-
+Now we continue  with a simple plot, the easies way is to open a png and later
+add the Markdown code for the image.
+.
 ```{r fig=TRUE,fig.width=9,fig.height=6}
 png("iris.png",width=800,height=500)
 data(iris)
@@ -39,16 +54,36 @@ dev.off()
 
 ![](iris.png)
 
-## Table Example
+Let's  finish the  R-section  with a little  table. The  package  comes with a
+command df2md whcih can be used to display Data Frames and Matrices.
 
 ```{r results="asis"}
 df2md(head(iris))
 ```
 
 
-## Inline expression
+Last but not  least  often  you like to inline  R-expressions  in your text to
+display results of R commands directly within your text.
+
 
 The dataset iris has `r nrow(iris)` plants.
+
+## Graphviz example
+
+The  following  code  requires  the  GraphViz  tools to be  available  and the
+applications  dot or neato must be  available  in one folder  belonging to the
+PATH  variable.  Usually on a Linux system you install  these tools using your
+package manager like this:
+
+```
+### Fedora
+sudo dnf install graphviz
+### Debian systems like Ubuntu
+sudo apt install graphviz
+```
+
+After you installed these tools you can embed and display GraphViz code within
+your Markdown documents like this:
 
 ```{.dot eval=true}
 digraph { 
@@ -57,6 +92,23 @@ digraph {
     A -> B; 
 }
 ```
+
+## PlantUML code
+
+The  following  code  requires  the [PlantUML](https://www.plantuml.com) application  and the  executable
+_plantuml_  must be  available in one folder  belonging to the PATH  variable.
+Usually on a Linux system you install  these tools using your package  manager
+like this:
+
+```
+### Fedora
+sudo dnf install plantuml
+### Debian systems like Ubuntu
+sudo apt install plantuml
+```
+
+After you installed  this tool you can embed and display  PlantUML code within
+your Markdown documents like this:
 
 ```{.puml eval=true}
 @startuml
@@ -71,10 +123,51 @@ B - C
 ## Python example
 
 ```{.pipe pipe="python3" eval=TRUE}
-print("Hello Python 2023")
+print("Hello Python 2023\n",flush=True)
+for i in range(0,5):
+    print(i,flush=True)
 ```
 
-## EOF
+Inline Python: After the loop the variable value of i is `py i`!
 
+## Kroki Diagrams
+
+The  [Kroki](https://kroki.io/)  webservices  allows  you to  create  diagrams
+without  installing  software  on your own  machine  and  should  work with an
+internet  connection. The webservice  supports a lot of diagram types, such as
+PlantUML  (dia=plantuml),  Graphviz  (dia=graphviz),  Mermaid (dia=mermaid) or
+Ditaa (dia=ditaa) and many others.
+
+Here we provie just two examples, one for Ditaa diagram:
+
+```{.kroki label=ditaa app=wget ext=svg eval=true echo=true dia=ditaa}
++----------------------------------------+
+| File | Help   cEEE                     |
++-------------+--------------------------+
+|  ttk.Button | ttk.Combobox             |
++-------------+--------------------------+
+|             |                          |
+| tk.Listbox  | tk.Text                  |
+|             |                          |
+|            <+>                         |
+|             |                          |
+|             |                          |
+|             |                          |
++-------------+--------+-----------------+
+| ttk.Label            | ttk.Progressbar | 
++----------------------+-----------------+
+```
+
+And here an example for a Mermaid diagram:
+
+
+```{.kroki label=mermaid app=wget ext=svg eval=true echo=true dia=mermaid}
+graph TD
+  A[ Anyone ] -->|Can help | B( Go to github.com/yuzutech/kroki )
+  B --> C{ How to contribute? }
+  C --> D[ Reporting bugs ]
+  C --> E[ Sharing ideas ]
+  C --> F[ Advocating ]
+```
 
 
