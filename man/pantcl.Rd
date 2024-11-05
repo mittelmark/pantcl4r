@@ -1,5 +1,6 @@
 \name{pantcl} 
 \alias{pantcl} 
+\alias{pantcl4r} 
 \title{ perform literate programming } 
 \description{ 
     A function which calls the pantcl application inside of a R package. 

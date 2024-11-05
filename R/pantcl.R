@@ -1,5 +1,6 @@
 #' \name{pantcl}
 #' \alias{pantcl}
+#' \alias{pantcl4r}
 #' \title{ perform literate programming }
 #' \description{
 #'     A function which calls the pantcl application inside of a R package.
@@ -40,6 +41,7 @@ pantcl <- function (infile, outfile=NULL,css=NULL,quiet=FALSE, ...) {
         cmdline = paste("set ::argv [list",infile, outfile,"--no-pandoc --inline true]")
     }
     tcltk::.Tcl("set ::quiet true")
+    tcltk::.Tcl(paste(paste("cd",getwd())))
     tcltk::.Tcl("if {[info commands ::exitorig] eq {}} {  rename ::exit ::exitorig ; }; proc ::exit {args} { return }")
     tcltk::.Tcl(cmdline)
     tcltk::.Tcl(paste("source",file.path(system.file(package="pantcl4r"),"pantcl", "pantcl.tcl")))
@@ -47,6 +49,8 @@ pantcl <- function (infile, outfile=NULL,css=NULL,quiet=FALSE, ...) {
         message(paste("Processing",infile,"to",outfile,"done!"))
     }
 }
+
+pantcl4r <- pantcl
 
 #' \name{ptangle}
 #' \alias{ptangle}
@@ -221,8 +225,9 @@ df2md <- function(df,caption="",rownames=TRUE) {
     tcltk::.Tcl("package require tclfilters")
     tools::vignetteEngine("pantcl4r",
                           package=pkgname,
-                          weave=pantcl,
-                          tangle=ptangle,pattern="[.][PpTtRr]md$")
+                          weave = function (file, ...) { pantcl4r::pantcl(file,...) },
+                          tangle=function (file, ...) { pantcl4r::ptangle(file,...) },
+                          pattern="[.][PpTtRr]md$")
 }
 
 

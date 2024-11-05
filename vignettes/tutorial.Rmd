@@ -1,7 +1,7 @@
 ---
 title: pantcl4r - Tutorial
 author: Detlef Groth, University of Potsdam
-date: 2024-06-26
+date: 2024-11-05 07:33
 pipe:
     pipe: R
     eval: 1
@@ -10,7 +10,7 @@ tcl:
         
 vignette: >
   %\VignetteIndexEntry{pantcl4r - Tutorial}
-  %\VignetteEngine{pantcl4r}
+  %\VignetteEngine{pantcl4r::pantcl}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -28,20 +28,104 @@ Below you find example code for the package pantcl4r for different programming
 or diagram  languages  like R, Python,  Tcl, C++,  GraphViz  dot,  PlantUML or
 diagram languages supported by the kroki web service. 
 
+## Document processing
+
+The  idea  of the  process  is that  you  create  a file  with  embedded  code
+statements  and then the file is  converted  to a HTML file where the embedded
+statements are executed and the results of the code execution is added as well
+to the output. That way you can combine  your text for your  article or thesis
+with R code and  updating  your results is very easy in case your data gets an
+update. So the pipeline  within your R console using the function  `pantcl` of
+the pantcl4r package is as follows:
+
+```
+
++-------------+                                        +--------------+   
+|             |  pantcl('article.Rmd','article.Rmd')   |              |
+| article.Rmd +--------------------------------------> | article.html |  
+|             |                                        |              |
++-------------+                                        +--------------+
+```
+
+
 ## R examples
 
-Let's start with a simple print statement using R:
+Let's start with a simple print  statement  using R (replace the triple single
+quotes with triple backticks in the examples below, the single quotes are used
+to avoid inpterpretation by the package for the code examples
+
+```
+'''{r}
+x=1
+print(x)
+'''
+```
+
+This is the output:
 
 ```{r}
-library(pantcl4r)
 x=1
 print(x)
 ```
 
-Now we continue  with a simple plot, the easies way is to open a png and later
+Using the code chunk option `echo=FALSE` we can avoid showing the source code.
+
+```
+'''{r echo=FALSE}
+x=1
+print(x)
+'''
+```
+
+This is the output:
+
+```{r echo=FALSE}
+x=1
+print(x)
+```
+
+To even hide the output you could use the optin  `results="hide"`.  That would
+allow you to perform some  computations but hide the details in the ouput. For
+instance in a scientific  article you only like to present the results but not
+exactly how they are computed.
+
+```
+'''{r echo=FALSE results="hide"}
+x=x+1
+print(x)
+'''
+```
+
+Here the result:
+
+```{r echo=FALSE results="hide"}
+x=x+1
+print(x)
+```
+
+You should see ... Nothing! But x is now: `r x`!
+
+Now we continue  with a simple plot, the easiest way is to open a png and later
 add the Markdown code for the image.
-.
-```{r fig=TRUE,fig.width=9,fig.height=6}
+
+```
+ '''{r}
+ png("iris.png",width=800,height=500)
+ data(iris)
+ par(mfrow=c(1,2),mai=rep(0.8,4))
+ plot(iris$Sepal.Width~iris$Sepal.Length,
+     col=as.numeric(iris$Species)+1,pch=15)
+ plot(iris$Petal.Width~iris$Petal.Length,
+    col=as.numeric(iris$Species)+1,pch=15)
+ dev.off()
+ '''
+
+ ! [] (iris.png) (remove spaces)
+```
+
+Here is the output:
+
+```{r eval=TRUE}
 png("iris.png",width=800,height=500)
 data(iris)
 par(mfrow=c(1,2),mai=rep(0.8,4))
@@ -54,19 +138,41 @@ dev.off()
 
 ![](iris.png)
 
-Let's  finish the  R-section  with a little  table. The  package  comes with a
-command df2md whcih can be used to display Data Frames and Matrices.
+Let's  continue with a little  table. The  package  comes with a
+command  df2md which can be used to display  Data Frames and  Matrices. If you
+have the knitr package installed you could as well use knitr:kable instead.
+
+```
+'''{r results="asis"}
+df2md(head(iris))
+'''
+```
+
+See especially the code chunk option `results="asis"` which indicates that the
+putput  should be embedded  already as Markdown  code ready for  conversion to
+HTML. Here the result:
+
 
 ```{r results="asis"}
 df2md(head(iris))
 ```
 
 
-Last but not  least  often  you like to inline  R-expressions  in your text to
+Last but not  least, often  you like to inline  R-expressions  in your text to
 display results of R commands directly within your text.
 
 
 The dataset iris has `r nrow(iris)` plants.
+
+To summarize this section. We have either 
+
+- code chunks in tiple backtick fenced code block
+- inline code expressions with single backticks 
+
+The following code chunk arguments were discussed:
+
+- echo - show the code chunk code, default: TRUE
+- results - show the results (default: 'show', possible as well 'hide' or 'asis'
 
 ## Graphviz example
 

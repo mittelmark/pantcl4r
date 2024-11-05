@@ -1,0 +1,26 @@
+name: Makefile Package
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:       
+    - uses: actions/checkout@v4
+    - name: Build
+      run: |
+        sudo apt-get install texlive-base
+        make build
+        make check
+        make install
+        cp snha_0.3.0.tar.gz build/
+    - name: Upload Artifact GitHub Action
+      uses: actions/upload-artifact@v4
+      with: 
+         name: snha_0.3.0.tar.gz
+         path: build/snha_0.3.0.tar.gz
+

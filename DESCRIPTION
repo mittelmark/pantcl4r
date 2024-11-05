@@ -1,14 +1,15 @@
 Package: pantcl4r
 Type: Package
 Title: Literate programming using R, Python, Octave, Tcl, Graphviz and other tools
-Version: 0.2.0
-Date: 2023-09-07
+Version: 0.3.0
+Date: 2024-06-25
 Author: Detlef Groth, University of Potsdam, Germany
 Maintainer: Detlef Groth <dgroth@uni-potsdam.de>
 Description: R package for literate programming using the pantcl application. 
     The package allows to embed programming code for different programming languages into Markdown files and the document
     into HTML files.
 Imports: tcltk
-VignetteBuilder: pantcl4r
+VignetteBuilder: pantcl4r                          
+Suggests: pantcl4r
 License: MIT + file LICENSE
 NeedsCompilation: no
