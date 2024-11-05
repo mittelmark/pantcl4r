@@ -16,7 +16,9 @@ jobs:
     - name: Build
       run: |
         sudo apt-get install texlive-base
-        Rscript -e 'install.packages("https://github.com/mittelmark/pantcl4r/releases/download/v0.3.0/pantcl4r_0.3.0.tar.gz", repos=NULL);'
+        mkdir ~/R
+        Rscript -e '.libPaths("~/R",.libPaths());install.packages("https://github.com/mittelmark/pantcl4r/releases/download/v0.3.0/pantcl4r_0.3.0.tar.gz", repos=NULL);'
+        echo '.libPaths("~/R",.libPaths())' > ~/.Rprofile
         make build
         make check
         make install
