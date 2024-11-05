@@ -1,8 +1,10 @@
 name: Makefile Package
 
 on:
-  push:
-    branches: [ "main" ]
+  workflow_dispatch:
+    branches: [ master ]
+env:
+   VERSION: "0.3.0"
 
 jobs:
   build:

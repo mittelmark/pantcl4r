@@ -9,8 +9,9 @@
 name: R
 
 on:
-  push:
-    branches: [ "main" ]
+on:
+  workflow_dispatch:
+    branches: [ master ]
 
 permissions:
   contents: read
