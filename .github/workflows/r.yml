@@ -9,7 +9,6 @@
 name: R
 
 on:
-on:
   workflow_dispatch:
     branches: [ master ]
 
