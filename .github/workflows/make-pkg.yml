@@ -16,7 +16,7 @@ jobs:
     - name: Build
       run: |
         sudo apt-get install texlive-base
-        Rscript -e 'install.package("https://github.com/mittelmark/pantcl4r/releases/download/v0.3.0/pantcl4r_0.3.0.tar.gz", repos=NULL);'
+        Rscript -e 'install.packages("https://github.com/mittelmark/pantcl4r/releases/download/v0.3.0/pantcl4r_0.3.0.tar.gz", repos=NULL);'
         make build
         make check
         make install
