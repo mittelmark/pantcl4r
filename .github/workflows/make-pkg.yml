@@ -15,6 +15,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: Build
       run: |
+        export DISPLAY=:99.0
         sudo apt-get install texlive-full
         mkdir ~/R
         Rscript -e '.libPaths(c("~/R",.libPaths()));install.packages("https://github.com/mittelmark/pantcl4r/releases/download/v0.3.0/pantcl4r_0.3.0.tar.gz", repos=NULL);'
@@ -22,10 +23,11 @@ jobs:
         make build
         make check
         make install
-        cp snha_0.3.0.tar.gz build/
+        mkdir build
+        cp pantcl4r_0.3.0.tar.gz build/
     - name: Upload Artifact GitHub Action
       uses: actions/upload-artifact@v4
       with: 
-         name: snha_0.3.0.tar.gz
-         path: build/snha_0.3.0.tar.gz
+         name: pantcl4r_0.3.0.tar.gz
+         path: build/pantcl4r_0.3.0.tar.gz
 
