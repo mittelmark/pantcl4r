@@ -15,8 +15,11 @@ jobs:
     - uses: actions/checkout@v4
     - name: Build
       run: |
-        export DISPLAY=:99.0
-        sudo apt-get install texlive-full
+        #export DISPLAY="127.0.0.1:10.0"
+        sudo apt-get install texlive-full xvfb
+        #sudo apt-get update && sudo apt-get install -y xvfb
+        export DISPLAY=:99
+        Xvfb :99 -screen 0 1024x768x24 &
         mkdir ~/R
         Rscript -e '.libPaths(c("~/R",.libPaths()));install.packages("https://github.com/mittelmark/pantcl4r/releases/download/v0.3.0/pantcl4r_0.3.0.tar.gz", repos=NULL);'
         echo '.libPaths(c("~/R",.libPaths()))' > ~/.Rprofile
