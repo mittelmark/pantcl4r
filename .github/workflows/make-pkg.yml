@@ -15,7 +15,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: Build
       run: |
-        sudo apt-get install texlive-base
+        sudo apt-get install texlive-full
         mkdir ~/R
         Rscript -e '.libPaths(c("~/R",.libPaths()));install.packages("https://github.com/mittelmark/pantcl4r/releases/download/v0.3.0/pantcl4r_0.3.0.tar.gz", repos=NULL);'
         echo '.libPaths(c("~/R",.libPaths()))' > ~/.Rprofile
