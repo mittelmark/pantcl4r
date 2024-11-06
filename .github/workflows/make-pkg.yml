@@ -16,15 +16,14 @@ jobs:
     - name: Build
       run: |
         #export DISPLAY="127.0.0.1:10.0"
-        sudo apt-get install texlive-full xvfb graphviz plantuml
-        #sudo apt-get update && sudo apt-get install -y xvfb
+        sudo apt-get install texlive-latex-base texlive-fonts-extra texlive-fonts-recommended texlive-latex-extra
+        sudo apt-get install xvfb graphviz plantuml
         export DISPLAY=:99
         Xvfb :99 -screen 0 1024x768x24 &
         mkdir ~/R
-        Rscript -e '.libPaths(c("~/R",.libPaths()));install.packages("https://github.com/mittelmark/pantcl4r/releases/download/v0.3.1/pantcl4r_0.3.1.tar.gz", repos=NULL);'
+        Rscript -e '.libPaths(c("~/R",.libPaths()));install.packages("https://github.com/mittelmark/pantcl4r/releases/download/v0.3.0/pantcl4r_0.3.0.tar.gz", repos=NULL);'
         echo '.libPaths(c("~/R",.libPaths()))' > ~/.Rprofile
         make build
-                
         make check
         make install
         mkdir build
