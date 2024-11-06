@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     branches: [ master ]
 env:
-   VERSION: "0.3.0"
+   VERSION: "0.3.1"
 
 jobs:
   build:
@@ -16,21 +16,22 @@ jobs:
     - name: Build
       run: |
         #export DISPLAY="127.0.0.1:10.0"
-        sudo apt-get install texlive-full xvfb
+        sudo apt-get install texlive-full xvfb graphviz plantuml
         #sudo apt-get update && sudo apt-get install -y xvfb
         export DISPLAY=:99
         Xvfb :99 -screen 0 1024x768x24 &
         mkdir ~/R
-        Rscript -e '.libPaths(c("~/R",.libPaths()));install.packages("https://github.com/mittelmark/pantcl4r/releases/download/v0.3.0/pantcl4r_0.3.0.tar.gz", repos=NULL);'
+        Rscript -e '.libPaths(c("~/R",.libPaths()));install.packages("https://github.com/mittelmark/pantcl4r/releases/download/v0.3.1/pantcl4r_0.3.1.tar.gz", repos=NULL);'
         echo '.libPaths(c("~/R",.libPaths()))' > ~/.Rprofile
         make build
+                
         make check
         make install
         mkdir build
-        cp pantcl4r_0.3.0.tar.gz build/
+        cp pantcl4r_0.3.1.tar.gz build/
     - name: Upload Artifact GitHub Action
       uses: actions/upload-artifact@v4
       with: 
-         name: pantcl4r_0.3.0.tar.gz
-         path: build/pantcl4r_0.3.0.tar.gz
+         name: pantcl4r_0.3.1.tar.gz
+         path: build/pantcl4r_0.3.1.tar.gz
 
