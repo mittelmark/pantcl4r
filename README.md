@@ -1,5 +1,8 @@
 # pantcl4r
 
+[![Release](https://img.shields.io/github/v/release/mittelmark/pantcl4r.svg?label=current+release)](https://github.com/mittelmark/microemacs/releases)
+[![license](https://img.shields.io/badge/license-MIT-lightgray.svg)](https://opensource.org/license/mit)
+
 A R package for literate programming.
 
 This package can be used to create reports and manuscripts with embedded
@@ -7,12 +10,10 @@ programming code where the code can be evaluated by the script language or a
 diagram, charting or diagramming tool and the output will  be embedded in the final manuscript.
 
 This is a small scale alternative to Sweave, Rmarkdown, Knitr etc. It is
-essentially a wrapper for the [pantcl](https://github.com/mittelmark/pantcl)
+essentially a wrapper for the [pantcl](https://github.com/mittelmark/pantcl) application
 which does not need an installed version of pandoc or any other R package.
 
-It allows the embedding for the following programming languages and tools:
-
-Filter documentation:
+It allows currently the embedding for the following programming languages and tools:
 
 - [filter-abc](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-abc.html) - visualize [ABC music notation](https://abcnotation.com/)
 - [filter-cmd](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mittelmark/pantcl/master/lib/tclfilters/filter-cmd.html) - execute shell scripts for instance [Lilypond music scripts](http://lilypond.org/), [GraphViz](https://www.graphviz.org) scripts, Python, Lua, R scripts, [sqlite3](https://www.sqlite.org) scripts, or code for languages like  C, C++, Go, Rust, V  etc.
@@ -46,9 +47,37 @@ Below you see an image of the graphical  tool:
 
 ![](https://user-images.githubusercontent.com/75636/266270712-d6810a37-e50e-4105-833f-96467ea4d552.png)
 
-## Build and Install
+## Install and Use
 
-To install this package you need only an installed R instance and the remotes library.
+To install the latest release for R you can use the following commands from within a
+R console:
+
+```
+install.packages(
+    "https://github.com/mittelmark/pantcl4r/releases/download/v0.3.1/pantcl4r_0.3.1.tar.gz",
+    repos=NULL);
+```
+
+Thereafter you should check the package vignette:
+
+```
+library(pantcl4r)
+vignette("tutorial",package="pantcl4r")
+```
+
+To  process  a  Markdown file for  example,  with  embedded  R code,  you  can do the
+following:
+
+```
+pantcl4r::pantcl("input.Rmd","output.html")
+```
+
+Which will  create a file  _output.html_  where the R code chunks or chunks of
+the other languages within _input.html_ are evaluated and the results embedded
+into the output file if requested.
+
+
+To install the latest development library you need the library 'remotes'.
 
 ```
 library(remotes)
