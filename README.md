@@ -1,7 +1,10 @@
 # pantcl4r
 
 [![Release](https://img.shields.io/github/v/release/mittelmark/pantcl4r.svg?label=current+release)](https://github.com/mittelmark/microemacs/releases)
+
 [![license](https://img.shields.io/badge/license-MIT-lightgray.svg)](https://opensource.org/license/mit)
+
+![Build](https://github.com/mittelmark/pantcl4r/workflows/Makefile%20Package/badge.svg)
 
 A R package for literate programming.
 
