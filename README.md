@@ -56,7 +56,7 @@ R console:
 
 ```
 install.packages(
-    "https://github.com/mittelmark/pantcl4r/releases/download/v0.3.1/pantcl4r_0.3.1.tar.gz",
+    "https://github.com/mittelmark/pantcl4r/releases/download/v0.4.0/pantcl4r_0.4.0.tar.gz",
     repos=NULL);
 ```
 
