@@ -4,8 +4,9 @@
 # Author: Detlef Groth, Schwielowsee, Germany
 # Version: 0.9.12 - 2023-04-17
 # Version: 0.9.13 - 2023-09-07
+# Version: 0.9.14 - 2024-11-13 - line filter with single backtick eval for R
 
-package provide pantcl 0.9.13
+package provide pantcl 0.9.14
 namespace eval ::pantcl { }
 
 if {[llength $argv] > 0 && ([lsearch -exact $argv -v] >= 0 || [lsearch -exact $argv --version] >= 0)} {
@@ -260,7 +261,6 @@ proc ::pantcl::tangle {args} {
     } else {
         set type [regsub --  {^\.} $type ""]
     }
-    set type [regsub {md$} $type ""]
     if {$outfile ni [list stdout -]} {
         set out [open $outfile w 0600]
     } else {
@@ -388,6 +388,19 @@ proc ::pantcl::lineFilter {argv} {
                     set line [regsub -all {\[@([-A-Z0-9a-z]+)\s*;\s*([-A-Z0-9a-z]+)\s*;\s*([-A-Z0-9a-z]+) \]} $line "`tcl cite \\1 \\2 \\3`"]
                 }
             }
+            set x 0
+            while {!$pre && [regexp {`(r|py) +([^`]+)`} $line -> lang code]} {
+                puts stdout $line   
+                puts stdout "lang: '$lang' code: '$code'"
+                if {$lang eq "r"} { set lang R }
+                set res [filter-pipe $code [dict create pipe $lang eval true]]
+                set res [regsub {.+\[1\] } [lindex $res 0] ""]
+                set line [regsub {`(r|py) +([^`]+)`} $line $res]
+                # to avoid endless loops
+                if {[incr x] > 10} {
+                    break
+                }   
+            }       
             # translate r-chunks into pipe chunks
             if {[regexp {``` ?\{.*\}} $line]} {
                 set line [regsub {\{r(.*)\}} $line "{.pipe pipe=\"R\"\\1}"]
@@ -621,9 +634,9 @@ if {[info exists argv] && [llength $argv] > 1 && [file exists [lindex $argv 0]]}
 }
 
 #' ---
-#' title: pantcl filter documentation - 0.9.13
+#' title: pantcl filter documentation - 0.9.12
 #' author: Detlef Groth, Schwielowsee, Germany
-#' date: 2023-09-07
+#' date: 2023-09-13
 #' tcl:
 #'    echo: "true"
 #'    results: show
@@ -1196,7 +1209,7 @@ proc codeBlock {} {
                             # pandoc 2.9 (block first then meta)
                             set cres [regsub {^.+"blocks":\[(.+)\],"pandoc-api-version".+} $cres "\\1"]
                             # pandoc 2.12++ (meta first, then block)
-                            set cres [regsub {^\{"pandoc-api-version".+"blocks":\[(.+)\]\}} $cres "\\1"]                                
+                            #set cres [regsub {^\{"pandoc-api-version".+"blocks":\[(.+)\]\}} $cres "\\1"]                                
                             append blocks ,
                             append blocks $cres
                         }

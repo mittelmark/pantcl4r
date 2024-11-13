@@ -1,3 +1,7 @@
 ## 2024-11-06 Version 0.3.1
 
 - fixing chicken and egg problem, pantcl4r can build its own vignette using pantcl4r package.
+
+## 2024-11-13 Version 0.4.0
+
+- support for single backtick inline R and Python code

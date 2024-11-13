@@ -38,11 +38,12 @@ It allows currently the embedding for the following programming languages and to
 
 ## Commands
 
-There are essentially three commands:
+There are essentially four commands provided:
 
 * `pantcl` - converting Rmarkdown documents with embedded code to HTML
 * `ptangle` - extract programming code into script files from  the Markdown document
 * `pangui` - simple graphical  interface to edit abc music, Graphviz dot, Eqn equations,  Mermaid diagrams,  Pikchr and Pic code, Plantuml code, R-plots and Tcl-svg or Tcl-dot code
+* `df2md` - display tabular data within your Markdown documents
 
 Below you see an image of the graphical  tool:
 
@@ -84,6 +85,56 @@ To install the latest development library you need the library 'remotes'.
 library(remotes)
 remotes::install_github("https://github.com/mittelmark/pantcl4r")
 ```
+
+## Motivation
+
+The  main  purpose  of this  package  to have a simple  replacement  for the R
+packages [knitr](https://github.com/yihui/knitr)  and [rmarkdown](https://github.com/rstudio/rmarkdown)
+as there installations are sometimes tricky on simple user accounts like on the University pool
+machines due to there many dependencies.
+
+Furthermore the [pantcl4r](https://github.com/mittelmark/pantcl4r) packages supports directly
+Python and Octave code chunks as well as [Kroki](https://kroki.io) diagrams which allow the
+embedding for instance of [Ditaa](https://github.com/stathissideris/ditaa), 
+[PlantUML](https://github.com/plantuml/plantuml) and [GraphViz](https://www.graphviz.org).
+
+## R Examples
+
+Here is example code on how to embed R code:
+
+```
+    ```{r eval=TRUE}
+    print('Hello World!)
+    ```
+```
+
+And short R expressions can be as well inlined directly into the text:
+
+```
+   The iris data set has `r nrow(iris)` plants
+```
+
+Plots should be creates as SVG graphs like this:
+
+``` 
+   ```{r eval=TRUE}
+   png("iris.png")
+   pairs(iris)
+   dev.off()
+   ```
+
+   ![](iris.png)
+```
+
+Table display is as well supported using the function df2md and the function can be used like this:
+
+```
+   ```{r eval=TRUE,results="asis"}
+   cat(df2md(head(iris)))
+   ```
+```
+
+The code chunks can be hidden if you use the code chunk option `echo=FALSE`.
 
 ## Author and Copyright
 

@@ -1,8 +1,8 @@
 Package: pantcl4r
 Type: Package
 Title: Literate programming using R, Python, Octave, Tcl, Graphviz and other tools
-Version: 0.3.1
-Date: 2024-06-25
+Version: 0.4.0
+Date: 2024-11-13
 Author: Detlef Groth, University of Potsdam, Germany
 Maintainer: Detlef Groth <dgroth@uni-potsdam.de>
 Description: R package for literate programming using the pantcl application. 
