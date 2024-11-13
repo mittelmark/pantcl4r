@@ -114,14 +114,14 @@ And short R expressions can be as well inlined directly into the text:
    The iris data set has `r nrow(iris)` plants
 ```
 
-Plots should be creates as SVG graphs like this:
+Plots should be creates as PNG graphs like this (replace leading dot with backtick):
 
 ``` 
-   ```{r eval=TRUE}
-   png("iris.png")
-   pairs(iris)
-   dev.off()
-   ```
+.``{r eval=TRUE}
+png("iris.png")
+pairs(iris)
+dev.off()
+.``
 
    ![](iris.png)
 ```
@@ -129,9 +129,9 @@ Plots should be creates as SVG graphs like this:
 Table display is as well supported using the function df2md and the function can be used like this:
 
 ```
-   ```{r eval=TRUE,results="asis"}
-   cat(df2md(head(iris)))
-   ```
+.``{r eval=TRUE,results="asis"}
+cat(df2md(head(iris)))
+.``
 ```
 
 The code chunks can be hidden if you use the code chunk option `echo=FALSE`.
