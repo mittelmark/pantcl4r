@@ -123,7 +123,7 @@ pairs(iris)
 dev.off()
 .``
 
-   ![](iris.png)
+![](iris.png)
 ```
 
 Table display is as well supported using the function df2md and the function can be used like this:
