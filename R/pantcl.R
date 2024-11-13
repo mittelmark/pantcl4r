@@ -218,6 +218,57 @@ df2md <- function(df,caption="",rownames=TRUE) {
     cat(fin)
 }
 
+#' \name{lipsum}
+#' \alias{lipsum}
+#' \title{Create lipsum text to fill documents with text blocks}
+#' \description{
+#'     This function allows you to fill simple Lorem lipsum text into your document
+#'     to start initial layout previews.
+#' }
+#' \usage{lipsum(type=1, paragraphs=1,lang="latin") }
+#' \arguments{
+#'    \item{type}{the lipsum block, either 1 (Lorem lipsum ...) or 2 (Sed ut perspiciatis ...), default: 1}
+#'    \item{paragraphs}{integer, how many paragraphs, default: 1}
+#'    \item{lang}{either 'latin' or 'english', the latter is not yet implemented, default: 'latin'}
+#' }
+#' \examples{
+#' cat(lipsum(1,paragraphs=2))
+#' }
+
+lipsum <- function (type=1, paragraphs=1,lang="latin") {
+   if (lang == "latin") {
+       if (type == 1) {
+           lips=paste(rep("Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                          nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                          reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                          nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                          sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n",paragraphs),collapse="")
+       } else if (type == 2) {
+           lips=paste(rep("Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+                          quae ab illo inventore veritatis et quasi architecto beatae vitae
+                          dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
+                          sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+                          dolores eos qui ratione voluptatem sequi nesciunt. Neque porro
+                          quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
+                          adipisci velit, sed quia non numquam eius modi tempora incidunt
+                          ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim
+                          ad minima veniam, quis nostrum exercitationem ullam corporis
+                          suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
+                          Quis autem vel eum iure reprehenderit qui in ea voluptate velit
+                          esse quam nihil molestiae consequatur, vel illum qui dolorem eum
+                          fugiat quo voluptas nulla pariatur?\n\n",paragraphs),collapse="")
+       } else {
+         stop("only type 1 and 2 are supported")
+      } 
+   } else {
+      stop("Only latin supported currently")
+   }
+   lips=gsub("  +", " ",lips)
+   return(lips)
+}
 
 .onLoad <- function(libname, pkgname) {
     # to show a startup message
