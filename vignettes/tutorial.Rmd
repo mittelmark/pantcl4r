@@ -1,7 +1,7 @@
 ---
 title: pantcl4r - Tutorial
 author: Detlef Groth, University of Potsdam
-date: 2024-11-13 14:34
+date: 2024-11-13 15:30
 bibliography: ref.bib
 pipe:
     pipe: R
@@ -200,13 +200,25 @@ sudo apt install graphviz
 After you installed these tools you can embed and display GraphViz code within
 your Markdown documents like this:
 
-```{.dot eval=true}
+```{.dot eval=FALSE}
 digraph { 
     node[style=filled,fillcolor=skyblue];
     rankdir="LR";
     A -> B; 
 }
 ```
+
+You can achieve the same using the kroki  webservice which does not need local
+tools to be installed ike this:
+
+```{.kroki dia=graphviz,eval=TRUE}
+digraph { 
+    node[style=filled,fillcolor=skyblue];
+    rankdir="LR";
+    A -> B; 
+}
+```
+
 
 ## PlantUML code
 
@@ -225,7 +237,19 @@ sudo apt install plantuml
 After you installed  this tool you can embed and display  PlantUML code within
 your Markdown documents like this:
 
-```{.puml eval=true}
+```{.puml eval=FALSE}
+@startuml
+class A { }
+class B { }
+class C { }
+A -> B 
+B - C
+@enduml
+```
+
+Again you can use the kroki webservice for this diagram type:
+
+```{.kroki dia=plantuml,eval=TRUE}
 @startuml
 class A { }
 class B { }
