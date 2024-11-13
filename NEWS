@@ -5,3 +5,7 @@
 ## 2024-11-13 Version 0.4.0
 
 - support for single backtick inline R and Python code
+
+## 2024-11-XX Version 0.4.1
+
+- extending vignette with Reference, Python and backtick examples

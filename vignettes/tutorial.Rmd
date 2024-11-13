@@ -1,7 +1,8 @@
 ---
 title: pantcl4r - Tutorial
 author: Detlef Groth, University of Potsdam
-date: 2024-11-06 14:56
+date: 2024-11-13 09:16
+bibliography: ref.bib
 pipe:
     pipe: R
     eval: 1
@@ -41,7 +42,7 @@ the pantcl4r package is as follows:
 ```
 
 +-------------+                                        +--------------+   
-|             |  pantcl('article.Rmd','article.Rmd')   |              |
+|             |  pantcl('article.Rmd','article.html')   |              |
 | article.Rmd +--------------------------------------> | article.html |  
 |             |                                        |              |
 +-------------+                                        +--------------+
@@ -276,4 +277,26 @@ graph TD
   C --> F[ Advocating ]
 ```
 
+## References
+
+The package as well  supports  the  inclusion of  references  using the ref
+syntax. At first you must  declare a reference  file either in the yaml header
+like this: 
+
+```
+---
+...
+author: ...
+bibliography: ref.bib
+---
+```
+
+Let's give a few examples:
+
+The package  pantcl4r  [@pantcl4r]  was written by Detlef  Groth. There are as
+well a few interesting papers like [@Groth2019] and [@Hermanussen2021].
+
+Thereafter you can display the references:
+
+[@references ref.bib]
 
