@@ -16,6 +16,7 @@ jobs:
     - name: Build
       run: |
         #export DISPLAY="127.0.0.1:10.0"
+        java --version
         sudo apt-get install texlive-latex-base texlive-fonts-extra texlive-fonts-recommended texlive-latex-extra
         sudo apt-get install xvfb graphviz plantuml
         export DISPLAY=:99
