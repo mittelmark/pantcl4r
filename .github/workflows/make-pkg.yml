@@ -17,21 +17,23 @@ jobs:
       run: |
         #export DISPLAY="127.0.0.1:10.0"
         java --version
+        export VRS=`grep Version: DESCRIPTION | grep -oE '[.0-9]+'`
+        echo "VRS=$VRS" >> $GITHUB_ENV
         sudo apt-get install texlive-latex-base texlive-fonts-extra texlive-fonts-recommended texlive-latex-extra
         sudo apt-get install xvfb ##graphviz plantuml
         export DISPLAY=:99
         Xvfb :99 -screen 0 1024x768x24 &
         mkdir ~/R
-        Rscript -e '.libPaths(c("~/R",.libPaths()));install.packages("https://github.com/mittelmark/pantcl4r/releases/download/v0.3.0/pantcl4r_0.3.0.tar.gz", repos=NULL);'
+        Rscript -e '.libPaths(c("~/R",.libPaths()));install.packages("https://github.com/mittelmark/pantcl4r/releases/download/v0.4.0/pantcl4r_0.4.0.tar.gz", repos=NULL);'
         echo '.libPaths(c("~/R",.libPaths()))' > ~/.Rprofile
         make build
         make check
         make install
         mkdir build
-        cp pantcl4r_0.3.1.tar.gz build/
+        cp pantcl4r_${VRS}.tar.gz build/
     - name: Upload Artifact GitHub Action
       uses: actions/upload-artifact@v4
       with: 
-         name: pantcl4r_0.3.1.tar.gz
-         path: build/pantcl4r_0.3.1.tar.gz
+         name: pantcl4r_${{ env.VRS }}.tar.gz
+         path: build/pantcl4r_${{ env.VRS }}.tar.gz
 
