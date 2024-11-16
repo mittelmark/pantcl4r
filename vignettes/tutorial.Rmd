@@ -1,7 +1,7 @@
 ---
 title: pantcl4r - Tutorial
 author: Detlef Groth, University of Potsdam
-date: 2024-11-14 09:22
+date: 2024-11-16 06:56
 bibliography: ref.bib
 mathjax: 1
 pipe:
@@ -278,29 +278,29 @@ sudo apt install graphviz
 
 After you installed these tools you can embed and display GraphViz code within
 your Markdown  documents  like this (triple  backticks  instead of the leading
-single quote):
+single quotes):
 
 ```{.dot eval=FALSE}
-'``{.dot eval=TRUE}
+'''{.dot eval=TRUE}
 digraph { 
     node[style=filled,fillcolor=skyblue];
     rankdir="LR";
     A -> B; 
 }
-'``
+'''
 ```
 
 You can achieve the same using the kroki  webservice which does not need local
 tools to be installed ike this:
 
-```{.kroki dia=graphviz,eval=FALSE}
-'``{.kroki dia=graphviz,eval=TRUE}
+```
+'''{.kroki dia=graphviz,eval=TRUE}
 digraph { 
     node[style=filled,fillcolor=skyblue];
     rankdir="LR";
     A -> B; 
 }
-'``
+'''
 ```
 
 Here the result, but with echo=FALSE to hide the code:
@@ -310,6 +310,7 @@ digraph {
     node[style=filled,fillcolor=skyblue];
     rankdir="LR";
     A -> B; 
+
 }
 ```
 
