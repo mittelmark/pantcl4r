@@ -136,6 +136,26 @@ cat(df2md(head(iris)))
 
 The code chunks can be hidden if you use the code chunk option `echo=FALSE`.
 
+Mathematical equations using MathJax are as well supported since version 0.5.0.
+Just embed lines like:
+
+```
+some text \\( inline equation \\) and some more text.
+
+Or:
+
+\\[ block equation \\)
+
+Or:
+$$ block equation $$
+```
+
+into your text and use the argument _mathjax=TRUE_ in your pantcl call like this:
+
+```
+pantcl("input.Rmd","output.html",mathjax=TRUE)
+```
+
 ## Author and Copyright
 
 Author: Detlef Groth, University of Potsdam, Germany
