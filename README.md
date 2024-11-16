@@ -136,6 +136,8 @@ cat(df2md(head(iris)))
 
 The code chunks can be hidden if you use the code chunk option `echo=FALSE`.
 
+## Equations
+
 Mathematical equations using MathJax are as well supported since version 0.5.0.
 Just embed lines like:
 
@@ -155,6 +157,29 @@ into your text and use the argument _mathjax=TRUE_ in your pantcl call like this
 ```
 pantcl("input.Rmd","output.html",mathjax=TRUE)
 ```
+
+## Diagrams
+
+The package  supports  without  external  applications except for curl or wget to be installed as well
+diagram code display using the [krokio](https://kroki.io) webservice.
+
+Here an example for a [GraphViz](https://www.graphviz.com) diagram (replace singe quotes with backticks:
+
+```
+'''{.kroki dia=graphviz,eval=TRUE,echo=FALSE}
+digraph { 
+    node[style=filled,fillcolor=skyblue];
+    rankdir="LR";
+    A -> B; 
+}
+'''
+```
+
+Which should embed the diagram like this:
+
+![](https://kroki.io/graphviz/svg/eNpLyUwvSizIUEhXqOZSKErMy07JLLJV8glSsubKy09JjS4uqcxJtU3LzMlJTdEBUcn5OflFtsXZlUk5pamx1lwKjgq6dgpO1ly1AN5HGTo=)
+
+There is as well support for other diagram types like ditaa or PlantUML.
 
 ## Author and Copyright
 
