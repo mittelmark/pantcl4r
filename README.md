@@ -163,7 +163,7 @@ pantcl("input.Rmd","output.html",mathjax=TRUE)
 The package  supports  without  external  applications except for curl or wget to be installed as well
 diagram code display using the [krokio](https://kroki.io) webservice.
 
-Here an example for a [GraphViz](https://www.graphviz.com) diagram (replace singe quotes with backticks:
+Here an example for a [GraphViz](https://www.graphviz.org) diagram (replace singe quotes with backticks):
 
 ```
 '''{.kroki dia=graphviz,eval=TRUE,echo=FALSE}
@@ -179,7 +179,7 @@ Which should embed the diagram like this:
 
 ![](https://kroki.io/graphviz/svg/eNpLyUwvSizIUEhXqOZSKErMy07JLLJV8glSsubKy09JjS4uqcxJtU3LzMlJTdEBUcn5OflFtsXZlUk5pamx1lwKjgq6dgpO1ly1AN5HGTo=)
 
-There is as well support for other diagram types like ditaa or PlantUML.
+There is as well support for other diagram types like [Ditaa](https://ditaa.sourceforge.net/) or [PlantUML](https://www.plantuml.com).
 
 ## Author and Copyright
 
