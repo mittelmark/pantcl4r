@@ -8,5 +8,6 @@
 
 ## 2024-11-XX Version 0.4.1
 
-- extending vignette with Reference, Python and backtick examples
+- extending vignette with Reference, Python and inline backtick examples
 - adding lipsum function
+- MathJax support, use pantcl function with mathjax=TRUE option

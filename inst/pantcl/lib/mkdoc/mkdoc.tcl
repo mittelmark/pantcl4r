@@ -4,7 +4,7 @@ exec tclsh "$0" "$@"
 ##############################################################################
 #  Author        : Dr. Detlef Groth
 #  Created       : Fri Nov 15 10:20:22 2019
-#  Last Modified : <230907.0838>
+#  Last Modified : <241114.0856>
 #
 #  Description	 : Command line utility and package to extract Markdown documentation 
 #                  from programming code if embedded as after comment sequence #' 
@@ -68,7 +68,7 @@ exec tclsh "$0" "$@"
 #'
 #' ```
 #' package require mkdoc::mkdoc
-#' mkdoc::mkdoc inputfile outputfile ?-html|-md|-pandoc -css file.css?
+#' mkdoc::mkdoc inputfile outputfile ?-html|-md|-pandoc -css file.css -mathjax true?
 #' ```
 #'
 #' Usage as command line application for extraction of Markdown comments prefixed with `#'`:
@@ -105,6 +105,7 @@ exec tclsh "$0" "$@"
 #'   - *-md* - (mode) outfile should be a Markdown file, not needed if the outfile extension is md
 #'   - *-pandoc* - (mode) outfile should be a pandoc Markdown file with YAML header, needed even if the outfile extension is md
 #'   - *-css cssfile* if outfile mode is html uses the given *cssfile*
+#'   - *-mathjax true|false* - should the MathJax Javascript files beeing added to the HTML fle
 #'     
 #' > If the *-mode* flag  (one of -html, -md, -pandoc) is not given, the output format is taken from the file extension of the output file, either *.html* for HTML or *.md* for Markdown format. This deduction from the filetype can be overwritten giving either `-html` or `-md` as command line flags. If as mode `-pandoc` is given, the Markdown markup code as well contains the YAML header.
 #'   If infile has the extension .md than conversion to html will be performed, outfile file extension
@@ -135,6 +136,7 @@ namespace eval mkdoc {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="title" content="$document(title)">
   <meta name="author" content="$document(author)">
+  $document(mathjax)
   <title>$document(title)</title>
 $document(style)
 </head>
@@ -319,7 +321,7 @@ proc mkdoc::mkdoc {filename outfile args} {
     if {[llength $args] == 1} {
         set args {*}$args
     }
-    ::mkdoc::pargs arg [list mode "" css "" inline false] $args
+    ::mkdoc::pargs arg [list mode "" css "" inline false mathjax true] $args
     set mode $arg(mode)
     if {$mode ni [list "" html markdown man pandoc]} {
         set file [file join [file dirname $mkdocfile] ${mode}.tcl]
@@ -394,7 +396,12 @@ proc mkdoc::mkdoc {filename outfile args} {
         }
         close $infh
         set titleflag false
-        array set document [list title "Documentation [file tail [file rootname $filename]]" author "NN" date  [clock format [clock seconds] -format "%Y-%m-%d"] style $style]
+        array set document [list title "Documentation [file tail [file rootname $filename]]" author "NN" date  [clock format [clock seconds] -format "%Y-%m-%d"] style $style mathjax true]
+        if {$arg(mathjax)} {
+            set document(mathjax) {<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>}
+        } else {
+            set document(mathjax) ""
+        }
         if {$arg(css) eq ""} {
             set document(style) $style
         } else {

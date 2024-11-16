@@ -5,7 +5,7 @@
 #' \description{
 #'     A function which calls the pantcl application inside of a R package.
 #' }
-#' \usage{ pantcl(infile, outfile=NULL, css=NULL,quiet=FALSE, ...) }
+#' \usage{ pantcl(infile, outfile=NULL, css=NULL,quiet=FALSE, mathjax=FALSE,...) }
 #' \arguments{
 #'   \item{infile}{
 #'     an infile with Markdown code and embedded Programming language code
@@ -19,6 +19,9 @@
 #'   \item{quiet}{
 #'     should messages been hidden, default: FALSE
 #'   }
+#'   \item{mathjax}{
+#'     should the MathJax Javascript library be loaded, default: FALSE
+#'   }
 #'   \item{\ldots}{kept for compatibility with pandoc, not used currently }
 #' }
 #' \details{
@@ -26,19 +29,24 @@
 #' }
 #' \examples{
 #'   print("pantcl running")
-#'   cat("## Title\n\nHello World!\n\n```{r eval=TRUE}\nprint('Hello World!')\n```\n",file="hello.Rmd")
-#'   pantcl("hello.Rmd","hello.html")
+#'   cat("## Title\n\nHello World!\n\n\\\\[ E = mc^2 \\\\]\n\n```{r eval=TRUE}\nprint('Hello World!')\n```\n",file="hello.Rmd")
+#'   pantcl("hello.Rmd","hello.html",mathjax=TRUE)
 #' }
 
-pantcl <- function (infile, outfile=NULL,css=NULL,quiet=FALSE, ...) {
+pantcl <- function (infile, outfile=NULL,css=NULL,quiet=FALSE, mathjax=FALSE,...) {
     stopifnot(file.exists(infile))
     if (is.null(outfile)) {
         outfile=gsub("\\..md$",".html",infile)
     }
-    if (!is.null(css)) {
-        cmdline = paste("set ::argv [list",infile, outfile,"--css",css,"--no-pandoc]")        
+    if (mathjax) {
+        mjx="true"
     } else {
-        cmdline = paste("set ::argv [list",infile, outfile,"--no-pandoc --inline true]")
+        mjx="false"
+    }
+    if (!is.null(css)) {
+        cmdline = paste("set ::argv [list",infile, outfile,"--css",css,"--no-pandoc","--mathjax",mjx,"]")        
+    } else {
+        cmdline = paste("set ::argv [list",infile, outfile,"--mathjax",mjx,"--no-pandoc --inline true]")
     }
     tcltk::.Tcl("set ::quiet true")
     tcltk::.Tcl(paste(paste("cd",getwd())))
@@ -244,7 +252,7 @@ lipsum <- function (type=1, paragraphs=1,lang="latin") {
                           nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
                           reprehenderit in voluptate velit esse cillum dolore eu fugiat
                           nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                          sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n",paragraphs),collapse="")
+                          sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n",paragraphs),collapse="\n")
        } else if (type == 2) {
            lips=paste(rep("Sed ut perspiciatis unde omnis iste natus error sit voluptatem
                           accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
@@ -259,7 +267,7 @@ lipsum <- function (type=1, paragraphs=1,lang="latin") {
                           suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
                           Quis autem vel eum iure reprehenderit qui in ea voluptate velit
                           esse quam nihil molestiae consequatur, vel illum qui dolorem eum
-                          fugiat quo voluptas nulla pariatur?\n\n",paragraphs),collapse="")
+                          fugiat quo voluptas nulla pariatur?\n\n",paragraphs),collapse="\n")
        } else {
          stop("only type 1 and 2 are supported")
       } 

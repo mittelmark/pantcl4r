@@ -1,8 +1,9 @@
 ---
 title: pantcl4r - Tutorial
 author: Detlef Groth, University of Potsdam
-date: 2024-11-13 15:30
+date: 2024-11-14 09:22
 bibliography: ref.bib
+mathjax: 1
 pipe:
     pipe: R
     eval: 1
@@ -41,11 +42,11 @@ the pantcl4r package is as follows:
 
 ```
 
-+-------------+                                        +--------------+   
++-------------+                                         +--------------+   
 |             |  pantcl('article.Rmd','article.html')   |              |
-| article.Rmd +--------------------------------------> | article.html |  
-|             |                                        |              |
-+-------------+                                        +--------------+
+| article.Rmd +---------------------------------------->| article.html |  
+|             |                                         |              |
++-------------+                                         +--------------+
 ```
 
 
@@ -158,10 +159,12 @@ HTML. Here the result:
 df2md(head(iris))
 ```
 
+
 ## Lorem Lipsum 
 
-Sometimes we whould like to add some place holder text like Lorem  Lipsum. You
-can do this by writing:
+Sometimes we would like to add some place holder text like Lorem  Lipsum. You
+can do this by writing: `'r cat(lipsum(paragraphs=2)'`  (replace single quotes
+with backticks. Here the output:
 
 `r cat(lipsum(paragraphs=2))`
 
@@ -170,18 +173,94 @@ can do this by writing:
 Last but not  least, often  you like to inline  R-expressions  in your text to
 display results of R commands directly within your text.
 
-
+```
 The dataset iris has `r nrow(iris)` plants.
+```
 
-To summarize this section. We have either 
+gives:
 
-- code chunks in tiple backtick fenced code block
-- inline code expressions with single backticks 
+The dataset iris has `r nrow(iris)` plants.w
+
+__To summarize this section. We have either:__
+
+- __code chunks__ in triple backticks fenced code block mainly used to create figures and tables
+- __inline code__  expressions  with single  backticks to embed results within the
+normal text
 
 The following code chunk arguments were discussed:
 
 - echo - show the code chunk code, default: TRUE
 - results - show the results (default: 'show', possible as well 'hide' or 'asis'
+
+## Equations
+
+Since version 0.5.0 the package as well supports equations in two forms inline
+equations  within  parenthesis  which must be protected by two backslashes and
+block  equations  which are  enclosed by brackets as well  protected  with two
+backslashes to allow the substitutions:
+
+So equations can be written  either within  parenthesis  were the opening and the
+closing parenthesis must be prefixed with two backslashes.
+
+Example  of an  inline  equation __&bsol;&bsol;&bsol;&bsol;( E = mc^2 &bsol;&bsol;&bsol;&bsol;)__  gives: \\( E = mc^2 \\). You  write  these
+equations either within two parenthesis. 
+
+When \\(a \ne 0\\), there are two solutions to \\(ax^2 + bx + c = 0\\).
+
+Inline equation can be as well more complex: 
+
+```
+\\(\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}\\)
+```
+
+gives  \\(\sum_{i=0}^n i^2 =  \frac{(n^2+n)(2n+1)}{6}\\)  within a normal text
+line.
+
+Writing  equations in its own block  requires  embedding  them within  brackets
+protected  with two  backslashes or using two dollar signs to start end to end
+an equation like this:
+
+```
+\\[ equation \\]
+
+$$  equation  $$
+
+```
+
+Here the formula  shown above but now within its own block and numbered  using
+the tag command.
+
+So here the input:
+
+```
+\\[ \sum_{i=0}^n i^2 =  \frac{(n^2+n)(2n+1)}{6} \tag{1} \\] 
+```
+
+and here the output:
+
+\\[ \sum_{i=0}^n i^2 =  \frac{(n^2+n)(2n+1)}{6} \tag{1} \\] 
+
+As you can see the  alignment  to the  center  does not  really  look nice. So
+there is style  command for the  division tag of class left which aligns the equation to the
+left which is probably  better to read. So you wrap your equation  within this
+div tag to make it left aligned:
+
+&lt;div class="left"&gt;
+
+\$\$\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6} \tag{2}\$\$
+
+&lt;/div&gt;
+
+
+And here the output:
+
+<div class="left">
+$$\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6} \tag{2}$$
+</div>
+
+That probably looks better than a centered  equation with the numbering at the
+very end.
+
 
 ## Graphviz example
 
@@ -198,20 +277,35 @@ sudo apt install graphviz
 ```
 
 After you installed these tools you can embed and display GraphViz code within
-your Markdown documents like this:
+your Markdown  documents  like this (triple  backticks  instead of the leading
+single quote):
 
 ```{.dot eval=FALSE}
+'``{.dot eval=TRUE}
 digraph { 
     node[style=filled,fillcolor=skyblue];
     rankdir="LR";
     A -> B; 
 }
+'``
 ```
 
 You can achieve the same using the kroki  webservice which does not need local
 tools to be installed ike this:
 
-```{.kroki dia=graphviz,eval=TRUE}
+```{.kroki dia=graphviz,eval=FALSE}
+'``{.kroki dia=graphviz,eval=TRUE}
+digraph { 
+    node[style=filled,fillcolor=skyblue];
+    rankdir="LR";
+    A -> B; 
+}
+'``
+```
+
+Here the result, but with echo=FALSE to hide the code:
+
+```{.kroki dia=graphviz,eval=TRUE,echo=FALSE}
 digraph { 
     node[style=filled,fillcolor=skyblue];
     rankdir="LR";
