@@ -401,8 +401,10 @@ proc ::pantcl::lineFilter {argv} {
                 set res [filter-pipe $code [dict create pipe $lang eval true]]
                 set res [regsub {.*>>>} [lindex $res 0] ""]
                 set res [string range $res [expr {[string length $code]+1}] end]
-                set res [regsub {.+\[1\] } $res ""]
-                set res [regsub {^ +} $res ""]
+                set res [regsub {.*\[1\] } $res ""]
+                set res [string trim $res]
+                #set res [regsub {^ +} $res ""]
+                #set res [regsub { +$} $res ""]
                 set line [regsub {`(r|py) +([^`]+)`} $line $res]
                 # to avoid endless loops
                 if {[incr x] > 10} {
@@ -1058,6 +1060,8 @@ if {[info exists argv] && [llength $argv] > 1 && [file exists [lindex $argv 0]]}
 #' * 2023-09-07 - version 0.9.13
 #'    * support for --inline option to allow inlining of images and css files
 #'    * bug fix for image/img-tag
+#' * 2024-11-13 - version 0.9.14
+#'    * updating to newer mkdoc with support for mathjax equations and highlightjs library
 #'    
 #' ## SEE ALSO
 #' 
