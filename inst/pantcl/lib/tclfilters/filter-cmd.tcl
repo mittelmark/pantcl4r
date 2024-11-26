@@ -36,7 +36,7 @@
 #' 
 #' > - cachedir - directory where the files should be stored, default to
 #'     `~/.config/pantcl` on Unix systems and  `AppData/Local/pantcl` on
-#'     Windows
+#'     Windows, set to a . (dot) to place the files in the current working directory
 #'   - eval - should the code in the code block be evaluated, default: false
 #'   - file - the output filename for the code which will be executed using the given shebang line on top, if not given, code will be evaluated line by line, default: null
 #'   - results - should the output of the command line application been shown, should be asis, show or hide, default: show
@@ -48,7 +48,7 @@
 #'  ----
 #'  title: "filter-cmd.tcl documentation"
 #'  author: "Detlef Groth, Caputh-Schwielowsee, Germany"
-#'  date: 2021-12-27
+#'  date: 2024-07-23
 #'  cmd:
 #'      results: hide
 #'      eval: 1
@@ -95,9 +95,10 @@
 #' 
 #' ```
 #' #!/bin/sh
+#' ## file ~/bin/hwbutton.sh
 #' if [ -z $2 ] ; then
 #'     echo "Usage: hwbutton.sh 'rectangle \" title \" color'" outfile.png
-#'     return
+#'     exit
 #' fi
 #' echo "@startuml" > temp.uml
 #' echo "skinparam handwritten true" >> temp.uml
@@ -303,6 +304,40 @@
 #' }
 #' ```
 #' 
+#' And now an example doing plots with Gnuplot:
+#'
+#' ```{.cmd eval=false file=test-gnuplot.sh}
+#' #!/usr/bin/env gnuplot
+#' # Set the title for the graph.
+#' set title "Gnuplot Sine against Phase"
+#' 
+#' # We want the graph to cover a full sine wave.
+#' set xrange [0:6.28]
+#' 
+#' # Set the label for the X axis.
+#' set xlabel "Phase (radians)"
+#' # Unicode for pi
+#' set xtics ("0" 0,"0.5\U+03C0" pi/2, "\U+03C0" pi, \
+#' 	"1.5\U+03C0" 1.5*pi, "2\U+03C0" 2*pi)
+#' 
+#' # Draw a horizontal centreline.
+#' set xzeroaxis
+#' 
+#' # Pure sine wave amplitude ranges from +1 to -1.
+#' set yrange [-1:1]
+#' 
+#' # No tick-marks are needed for the Y-axis .
+#' unset ytics
+#' 
+#' set terminal png 
+#' set output 'images/test.png'
+#' # Plot the curve.
+#' plot sin(x)
+#' ```
+#' 
+#'
+#' ![](images/test.png)
+
 #' ![](dot.png)
 #' 
 #' ### Simple shell scripts
@@ -457,28 +492,7 @@
 #' ### C and C++ code
 #' 
 #' Using the approach with the lilypond examples we can as well embed C code by creating a wrapper for the compiler.
-#' We here use the shebang script implementation for gcc found here: 
-#' [https://rosettacode.org/wiki/Native_shebang#2nd_version._Pure_C.2C_no_extra_bash_script](https://rosettacode.org/wiki/Native_shebang#2nd_version._Pure_C.2C_no_extra_bash_script)
-#' 
-#' Now an example (`{.cmd file="test.csr" eval=true}`):
-#' 
-#' ```{.cmd file="test.csr"}
-#' #!/usr/bin/env -S script_gcc -lm
-#' 
-#' #include <stdio.h>
-#' #include <math.h>
-#' 
-#' int main (int argc, char** argv) {
-#'     printf("Hello C World!\n");
-#'     float pi = 3.141492653;
-#'     printf("pi is: %f\n",pi);
-#'     printf("sin(pi) is: %f\n",sin(pi));
-#'     return(0);
-#' }
-#' ```
-#' 
-#' Again there is a simpler approach without a wrapper function using a pseudo-
-#' shebang line (`{.cmd file="hello2.c" eval=true}`):
+#' Here we are usinfusing a pseudo- shebang line (`{.cmd file="hello2.c" eval=true}`):
 #'  
 #' ```{.cmd file="hello2.c"}
 #' ///usr/bin/cc -o "${0%.c}" "$0" -lm && exec "${0%.c}"
@@ -509,14 +523,54 @@
 #' } 
 #' ```
 #'
-#' Please take car that you need to use the same file extension in your shebang
+#' Please take care that you need to use the same file extension in your shebang
 #' line  and for your file argument, if your file ends in `cpp` as well your
 #' shebang has to use not `cxx` but `cpp` in the first line, the compiler line.
 #'
+#' Sometimes your code required other files in the same directory or in files being
+#' in relative order to the current source code, for instance if you include local
+#' header files. In this case you should set the `cachedir` property to a `.` (dot) 
+#' to indicate the current working directory. Here an example using the `[popl.h](https://github.com/badaix/popl)` 
+#' argument parsing library.
+#' 
+#' ```{.cmd file="poplex.cxx",cachdir="."}
+#' ///usr/bin/g++ -o "${0%.cxx}" -I. "$0" && exec "${0%.cxx}"
+#' #include <iostream>
+#' #include "include/popl.hpp"
+#' 
+#' void usage (char * appname) {
+#'     std::cout << "Usage: " << appname << " [-h, --help | -v, --verbose | -r, --rounding int]\n";
+#' }
+#' int main (int argc, char * argv[]) {
+#'     popl::OptionParser app(
+#'           "popl application\nUsage: poplex [options] number\nOptions");
+#'     auto help   = app.add<popl::Switch>("h", "help",
+#'           "produce help message");
+#'     auto verbose   = app.add<popl::Switch>("v", "verbose",
+#'           "set verbose on");
+#'     auto round = app.add<popl::Value<int>>("r", "round", 
+#'           "rounding digits",2);
+#'     if (argc == 1) { 
+#'         usage(argv[0]); 
+#'         return(0);
+#'     }
+#'     app.parse(argc, argv); 
+#'     // print auto-generated help message
+#'     if (help->is_set()) {
+#'         std::cout << app << "\n";
+#'         return(0);
+#'     } else if (verbose->is_set()) {
+#'         std::cout << "verbose is on\n";
+#'     }
+#'     return(0);
+#' }
+#' ```
+#' 
 #' ## Go, Rust and Vlang
 #'
 #' Here an example for the Go language (`{.cmd file="hello.go"}`):
 #'
+#' On Fedora I had to install Go with `sudo dnf install golang`.
 #' 
 #' ```{.cmd file="hello.go"}
 #' ///usr/bin/go run $0 $@  2>&1 && exit 0
@@ -528,22 +582,34 @@
 #' ```
 #' 
 #' Next try is Rust (`{.cmd file="hello-rust.rs"}`), as there is no `run` for
-#' rust we need to compile and then to execute the file as in C/C++:
+#' rust we need to compile and then to execute the file as in C/C++.
+#' On Fedora I had to install Go with `sudo dnf install rust`. 
 #'
 #'
 #' ```{.cmd file="hello-rust.rs"}
-#' ///home/groth/.cargo/bin/rustc $0 $@  -o ${0%.rs} 2>&1 && exec "${0%.rs}" && exit 0
+#' ///usr/bin/rustc $0 $@  -o ${0%.rs} 2>&1 && exec "${0%.rs}" && exit 0
 #' fn main () {
-#'   println!("Hello Rust World in 2023!")
+#'   println!("Hello Rust World in 2024!")
 #' }
 #' ```
 #'
-#' Now as the last example the new programming language [Vlang](https://vlang.io/) (V) (`{.cmd file="hello.v"}`):
+#' Now the new programming language [Vlang](https://vlang.io/) (V) (`{.cmd file="hello.v"}`):
 #' 
 #' ```{.cmd file="hello.v"}
 #' ///usr/local/bin/v run $0 $@  2>&1 && exit 0
 #' fn main () {
-#'   println("Hello V World in 2023!")
+#'   println("Hello V World in 2024!")
+#' }
+#' ```
+#'
+#' And now the Java Programming language:
+#'
+#' ```{.cmd file="hello-java.java"}
+#' ////usr/bin/javac $0 $@ 2>&1 && exec java -cp . HelloWorld && exit 0
+#' class HelloWorld {
+#'    public static void main(String[] args) {
+#'        System.out.println("Hello, World!"); 
+#'    }
 #' }
 #' ```
 #'
@@ -551,10 +617,6 @@
 #' 
 #' I left it as an exercise to embed Perl, Ruby, Julia scripts using the standard Shebang mechanism. 
 #' 
-#' 
-#' ## TODO:
-#' 
-#' * compile option to embed/Java etc code
 #' 
 #' ## See also:
 #' 
@@ -571,9 +633,24 @@
 proc filter-cmd {cont dict} {
     global n
     incr n
-    set def [dict create results asis eval true label null file null\
+    set def [dict create results asis eval true label null file null \
              include true app sh cachedir [pantcl::getCacheDir]]
     # TODO: dict app using
+    ## fixing , issues in dict and TRUE==true etc
+    if {$dict ne ""} {
+        set d [regsub -nocase -all FALSE $dict false]
+        set d [regsub -nocase -all TRUE  $d    true]
+        set d [regsub -nocase -all ,     $d    " "]
+        set d [regsub -nocase -all =     $d    " "]  ;#
+        set d [regsub -nocase -all {\\"} $d    ""]   ;#"
+        set dict [dict create {*}$d]
+    }
+    dict for {key value} $dict {
+        if {[regexp {,.+=} $value]} {
+            set val [regsub {,.+} $value ""]
+            set rest [regsub {.+?,} $value ""]
+        }
+    }
     set dict [dict merge $def $dict]
     if {![dict get $dict eval]} {
         return [list "" ""]
