@@ -2,7 +2,7 @@
 ##############################################################################
 #  Author        : Dr. Detlef Groth
 #  Created       : Fri Nov 15 10:20:22 2019
-#  Last Modified : <241127.0620>
+#  Last Modified : <241127.0713>
 #
 #  Description	 : Command line utility and package to extract Markdown documentation 
 #                  from programming code if embedded as after comment sequence #' 
@@ -71,7 +71,7 @@
 #' ```
 #' package require mkdoc::mkdoc
 #' mkdoc::mkdoc inputfile outputfile ?--css file1.css,file2.css? \
-ä'    ?--header header.html? ?--footer footer.html? \
+#'    ?--header header.html? ?--footer footer.html? \
 #'    ?--javascript highlightjs|file1.js,file2.js? ?--mathjax true? ?--refresh 10?
 #' ```
 #'
@@ -394,7 +394,6 @@ proc mkdoc::mkdoc {filename outfile args} {
             } 
             set header [subst -nobackslashes -nocommands $header]
             set head ""
-            parray document
             foreach line [split $header "\n"] {
                 if {[regexp {^ +[0-9] *$}  $line]} {
                     continue
