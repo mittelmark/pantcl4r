@@ -3,6 +3,8 @@
 [![Release](https://img.shields.io/github/v/release/mittelmark/pantcl4r.svg?label=current+release)](https://github.com/mittelmark/pantcl4r/releases)
 [![license](https://img.shields.io/badge/license-MIT-lightgray.svg)](https://opensource.org/license/mit)
 ![Build](https://github.com/mittelmark/pantcl4r/workflows/Makefile%20Package/badge.svg)
+![filesize](https://img.shields.io/badge/file%20size:-360kb-green)
+![downloads](https://img.shields.io/github/downloads/mittelmark/pantcl4r/total)
 
 An R package for literate programming for embedding programming languages like
 R, Python, Tcl or Octave, display the output of diagram tools like  PlantUML,  GraphViz,
