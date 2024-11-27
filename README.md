@@ -44,6 +44,7 @@ There are essentially four commands provided:
 * `ptangle` - extract programming code into script files from  the Markdown document
 * `pangui` - simple graphical  interface to edit abc music, Graphviz dot, Eqn equations,  Mermaid diagrams,  Pikchr and Pic code, Plantuml code, R-plots and Tcl-svg or Tcl-dot code
 * `df2md` - display tabular data within your Markdown documents
+* `lipsum` - embedding lipsum text in new manuscripts
 
 Below you see an image of the graphical  tool:
 
@@ -180,6 +181,12 @@ Which should embed the diagram like this:
 ![](https://kroki.io/graphviz/svg/eNpLyUwvSizIUEhXqOZSKErMy07JLLJV8glSsubKy09JjS4uqcxJtU3LzMlJTdEBUcn5OflFtsXZlUk5pamx1lwKjgq6dgpO1ly1AN5HGTo=)
 
 There is as well support for other diagram types like [Ditaa](https://ditaa.sourceforge.net/) or [PlantUML](https://www.plantuml.com).
+
+## Citations
+
+There is as well  limited  support for  embedding  citations  using the [@key]
+syntax for BibTeX files. See the vignette for an example.
+
 
 ## Author and Copyright
 
