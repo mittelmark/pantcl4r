@@ -27,4 +27,6 @@
   print("pantcl::ptangle running") 
   cat("## Title\n\nHello World!\n\n```{r eval=TRUE}\nprint('Hello World!')\n```\n",file="hello.Rmd") 
   ptangle("hello.Rmd","hello.R") 
+  file.remove("hello.Rmd") 
+  file.remove("hello.R") 
 } 

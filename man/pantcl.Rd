@@ -40,4 +40,6 @@
   md = paste(md, "\n```tcl\nset x 1\nputs $x\n\n") 
   cat(md,file="hello.Rmd") 
   pantcl("hello.Rmd","hello.html",mathjax=TRUE,refresh=10,javascript="highlightjs") 
+  file.remove("hello.Rmd") 
+  file.remove("hello.html") 
 } 

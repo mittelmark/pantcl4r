@@ -40,6 +40,8 @@
 #'   md = paste(md, "\n```tcl\nset x 1\nputs $x\n\n")
 #'   cat(md,file="hello.Rmd")
 #'   pantcl("hello.Rmd","hello.html",mathjax=TRUE,refresh=10,javascript="highlightjs")
+#'   file.remove("hello.Rmd")
+#'   file.remove("hello.html")
 #' }
 
 pantcl <- function (infile, outfile=NULL,css=NULL,quiet=FALSE, mathjax=NULL, javascript=NULL, refresh=NULL,...) {
@@ -113,6 +115,8 @@ pantcl4r <- pantcl
 #'   print("pantcl::ptangle running")
 #'   cat("## Title\n\nHello World!\n\n```{r eval=TRUE}\nprint('Hello World!')\n```\n",file="hello.Rmd")
 #'   ptangle("hello.Rmd","hello.R")
+#'   file.remove("hello.Rmd")
+#'   file.remove("hello.R")
 #' }
 
 
