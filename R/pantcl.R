@@ -5,7 +5,7 @@
 #' \description{
 #'     A function which calls the pantcl application inside of a R package.
 #' }
-#' \usage{ pantcl(infile, outfile=NULL, css=NULL,quiet=FALSE, mathjax=FALSE,...) }
+#' \usage{ pantcl(infile, outfile=NULL, css=NULL,quiet=FALSE, mathjax=NULL, javascript=NULL,refresh=NULL,...) }
 #' \arguments{
 #'   \item{infile}{
 #'     an infile with Markdown code and embedded Programming language code
@@ -20,7 +20,14 @@
 #'     should messages been hidden, default: FALSE
 #'   }
 #'   \item{mathjax}{
-#'     should the MathJax Javascript library be loaded, default: FALSE
+#'     should the MathJax Javascript library be loaded, default: NULL
+#'   }
+#'   \item{javascript}{
+#'     should javascript libraries or files being included, implemented is currently only the 
+#'     the library highlighjs, default: NULL
+#'   }
+#'   \item{refresh}{
+#'     should the HTML be refreshed every N seconds, values lower than 10 means no refreshment, default: NULL
 #'   }
 #'   \item{\ldots}{kept for compatibility with pandoc, not used currently }
 #' }
@@ -29,25 +36,42 @@
 #' }
 #' \examples{
 #'   print("pantcl running")
-#'   cat("## Title\n\nHello World!\n\n\\\\[ E = mc^2 \\\\]\n\n```{r eval=TRUE}\nprint('Hello World!')\n```\n",file="hello.Rmd")
-#'   pantcl("hello.Rmd","hello.html",mathjax=TRUE)
+#'   md="## Title\n\nHello World!\n\n\\\\[ E = mc^2 \\\\]\n\n```{r eval=TRUE}\nprint('Hello World!')\n```\n"
+#'   md = paste(md, "\n```tcl\nset x 1\nputs $x\n\n")
+#'   cat(md,file="hello.Rmd")
+#'   pantcl("hello.Rmd","hello.html",mathjax=TRUE,refresh=10,javascript="highlightjs")
 #' }
 
-pantcl <- function (infile, outfile=NULL,css=NULL,quiet=FALSE, mathjax=FALSE,...) {
+pantcl <- function (infile, outfile=NULL,css=NULL,quiet=FALSE, mathjax=NULL, javascript=NULL, refresh=NULL,...) {
     stopifnot(file.exists(infile))
     if (is.null(outfile)) {
         outfile=gsub("\\..md$",".html",infile)
     }
-    if (mathjax) {
-        mjx="true"
+    if (is.null(mathjax)) {
+        mjx=""
     } else {
-        mjx="false"
+        mjx="--mathjax true"
     }
-    if (!is.null(css)) {
-        cmdline = paste("set ::argv [list",infile, outfile,"--css",css,"--no-pandoc","--mathjax",mjx,"]")        
+    if (is.null(javascript)) {
+        jsc=""
     } else {
-        cmdline = paste("set ::argv [list",infile, outfile,"--mathjax",mjx,"--no-pandoc --inline true]")
+        if (javascript != "highlightjs") {
+            stop("Error: Currently only highlightjs as value for --javascript is supported!")
+        }
+        jsc=paste("--javascript",javascript)
     }
+    if (is.null(css)) {
+        css=""
+    } else {
+        css=paste("--css",css)
+    }
+    if (is.null(refresh)) {
+        refresh=""
+    } else {
+        refresh=paste("--refresh",refresh)
+    }
+    cmdline = paste("set ::argv [list",infile, outfile,css,"--no-pandoc",mjx,jsc,refresh,"]")        
+
     tcltk::.Tcl("set ::quiet true")
     tcltk::.Tcl(paste(paste("cd",getwd())))
     tcltk::.Tcl("if {[info commands ::exitorig] eq {}} {  rename ::exit ::exitorig ; }; proc ::exit {args} { return }")

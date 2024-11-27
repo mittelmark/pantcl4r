@@ -16,3 +16,7 @@
 
 - fix for inline R with [1] issue and whitespace trimming
 
+## 2024-11-27 Version 0.6.0
+
+- adding javascript option for 'highligthjs' support
+- adding refresh option for HTML pages

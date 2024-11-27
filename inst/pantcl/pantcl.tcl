@@ -4,11 +4,11 @@
 # Author: Detlef Groth, Schwielowsee, Germany
 # Version: 0.9.12 - 2023-04-17
 # Version: 0.9.13 - 2023-09-07
-# Version: 0.9.14 - 2024-11-13 - line filter with single backtick eval for R
+# Version: 0.9.14 - 2024-11-27
+
 
 package provide pantcl 0.9.14
 namespace eval ::pantcl { }
-
 if {[llength $argv] > 0 && ([lsearch -exact $argv -v] >= 0 || [lsearch -exact $argv --version] >= 0)} {
     puts "[package present pantcl]"
     exit 0
@@ -54,8 +54,10 @@ if {[llength $argv] > 0 && ([lsearch -regex $argv {-h$}] >= 0 || [lsearch -regex
     puts "         $argv0 --help                     - display this help page"
     puts "         $argv0 --version                  - display the version"
     puts "         $argv0 infile outfile --no-pandoc - use the standalone converter"
-    puts "         $argv0 infile outfile --tangle .tcl - extract all code from .tcl chunks"
-    puts "         $argv0 infile outfile --mathjax true --no-pandoc - render equations within the document"
+    puts "         $argv0 infile outfile --tangle .tcl             - extract all code from .tcl chunks"
+    puts "         $argv0 infile outfile --mathjax true     --no-pandoc - render equations within the document"
+    puts "         $argv0 infile outfile --javascript highlightjs --no-pandoc - support highlighting source code"
+    puts "         $argv0 infile outfile --refresh 10       --no-pandoc - support HTML refreshing every N seconds"
     puts "\nUsage (GUI): $argv0 --gui \[infile]\n"
     puts "        Supported infiles: abc, dot, eqn, mmd, mtex, pic, pik, puml, rplot, tdot, tsvg\n"
     puts "Examples:\n"
@@ -414,7 +416,8 @@ proc ::pantcl::lineFilter {argv} {
             # translate r-chunks into pipe chunks
             if {[regexp {``` ?\{.*\}} $line]} {
                 set line [regsub {\{r(.*)\}} $line "{.pipe pipe=\"R\"\\1}"]
-                set line [regsub {\{py(.*)\}} $line "{.pipe pipe=\"python\"\\1}"]                
+                set line [regsub {\{py(.*)\}} $line "{.pipe pipe=\"python\"\\1}"]
+                set line [regsub {\{oc(.*)\}} $line "{.pipe pipe=\"octave\"\\1}"]
                 set line [regsub -all {TRUE} $line true]
                 set line [regsub -all {FALSE} $line false]                
                 set line [regsub -all {,} $line " "]
@@ -534,8 +537,21 @@ proc ::pantcl::lineFilter {argv} {
     if {$mode eq "html"} {
         if {![lsearch -glob $argv *-mathjax] > -1} {
             if {[dict exists $yamldict mathjax] && [dict get $yamldict mathjax]} {
-                lappend argv -mathjax 
+                lappend argv --mathjax 
                 lappend argv true
+            }   
+        }
+        if {![lsearch -glob $argv *-javascript] > -1} {
+            if {[dict exists $yamldict javascript] && [dict get $yamldict javascript] ne ""}  {
+                lappend argv --javascript
+                lappend argv [dict get $yamldict javascript]
+            }   
+        }
+        #puts $argv
+        if {![lsearch -glob $argv *-refresh] > -1} {
+            if {[dict exists $yamldict refresh] && [dict get $yamldict refresh]} {
+                lappend argv --refresh 
+                lappend argv  [dict get $yamldict refresh]
             }   
         }
         mkdoc::mkdoc $outfile [regsub -- {-out.md} $outfile ".html"] {*}[lrange $argv 2 end]
@@ -592,12 +608,17 @@ if {[info exists argv] && [llength $argv] > 1 && [file exists [lindex $argv 0]]}
         pantcl::tangle {*}$argv
         return
     }
+    if {[catch {package require rl_json}]} {
+       if {![lsearch $argv --no-pandoc] > 1} {
+          lappend argv --no-pandoc
+       }
+    }
     if {[lsearch $argv --no-pandoc] > 1 || [auto_execok pandoc] eq ""} {
         package require yaml
         package require mkdoc::mkdoc
         set idx [lsearch $argv --no-pandoc] 
         if {$idx > 0} {
-            set argv [lreplace $argv $idx $idx {}]
+            set argv [lsearch -inline -all -not -exact $argv --no-pandoc]
         }
         set pandoc false
     } 
@@ -650,9 +671,9 @@ if {[info exists argv] && [llength $argv] > 1 && [file exists [lindex $argv 0]]}
 }
 
 #' ---
-#' title: pantcl filter documentation - 0.9.12
+#' title: pantcl filter documentation - 0.9.14
 #' author: Detlef Groth, Schwielowsee, Germany
-#' date: 2023-09-13
+#' date: 2024-11-25
 #' tcl:
 #'    echo: "true"
 #'    results: show
@@ -1060,9 +1081,13 @@ if {[info exists argv] && [llength $argv] > 1 && [file exists [lindex $argv 0]]}
 #' * 2023-09-07 - version 0.9.13
 #'    * support for --inline option to allow inlining of images and css files
 #'    * bug fix for image/img-tag
-#' * 2024-11-13 - version 0.9.14
+#' * 2024-11-27 - version 0.9.14
 #'    * updating to newer mkdoc with support for mathjax equations and highlightjs library
-#'    
+#'    * support for refresh option
+#'    * bugfix for working as filter pandoc version 3
+#'    * support for single backticks for line-filter for R and Python
+#'    * documentation updates and fixes
+#' 
 #' ## SEE ALSO
 #' 
 #' * [Readme.html](Readme.html) - more information and small tutorial
@@ -1218,16 +1243,17 @@ proc codeBlock {} {
                             }
                         } else {
                             set cres $code
-                            set mdfile [file tempfile].md
+                            set mdfile asis.md ;#[file tempfile].md
                             set out [open $mdfile w 0600]
                             puts $out $code
                             close $out
                             set cres [exec pandoc -t json $mdfile]
-                            file delete $mdfile
-                            # pandoc 2.9 (block first then meta)
-                            set cres [regsub {^.+"blocks":\[(.+)\],"pandoc-api-version".+} $cres "\\1"]
-                            # pandoc 2.12++ (meta first, then block)
-                            #set cres [regsub {^\{"pandoc-api-version".+"blocks":\[(.+)\]\}} $cres "\\1"]                                
+                            if {[regexp {blocks.+pandoc-api-version} $cres]} {
+                                set cres [regsub {^.+"blocks":\[(.+)\],"pandoc-api-version".+} $cres "\\1"]
+                            } else {
+                                # pandoc 2.12++ (meta first, then block)
+                                set cres [regsub {^\{"pandoc-api-version".+"blocks":\[(.+)\]\}} $cres "\\1"] 
+                            }
                             append blocks ,
                             append blocks $cres
                         }

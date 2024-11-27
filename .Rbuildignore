@@ -3,3 +3,6 @@
 ^pantcl4r\.Rcheck$
 ^\.Rbuildignore$
 ^Makefile$
+^vignettes/images$
+^vignettes/iris.png$
+^test$
