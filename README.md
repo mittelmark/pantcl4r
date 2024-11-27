@@ -5,12 +5,14 @@
 ![Build](https://github.com/mittelmark/pantcl4r/workflows/Makefile%20Package/badge.svg)
 
 An R package for literate programming for embedding programming languages like
-R, Python, Tcl or Octave, or display the output of diagram tools like  PlantUML,  GraphViz,
+R, Python, Tcl or Octave, display the output of diagram tools like  PlantUML,  GraphViz,
 Ditaa or Kroki, embedding citations and much more.
 
-This is a small scale alternative to Sweave, Rmarkdown, Knitr etc. It is
+The package _pantcl4r_ is a small scale alternative to Sweave, Rmarkdown, Knitr etc. It is
 essentially a wrapper for the [pantcl](https://github.com/mittelmark/pantcl) application
-which does not need an installed version of pandoc or any other R package.
+which does not need an installed version of pandoc or any other R package. The
+package _pantcl4r_ has no dependencies on other non-standard R packages and is
+currently less than 400kb in size for downloading.
 
 It allows currently the embedding for the following programming languages and tools:
 
