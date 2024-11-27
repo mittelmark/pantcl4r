@@ -4,11 +4,9 @@
 [![license](https://img.shields.io/badge/license-MIT-lightgray.svg)](https://opensource.org/license/mit)
 ![Build](https://github.com/mittelmark/pantcl4r/workflows/Makefile%20Package/badge.svg)
 
-A R package for literate programming.
-
-This package can be used to create reports and manuscripts with embedded
-programming code where the code can be evaluated by the script language or a
-diagram, charting or diagramming tool and the output will  be embedded in the final manuscript.
+An R package for literate programming for embedding programming languages like
+R, Python, Tcl or Octave, or display the output of diagram tools like  PlantUML,  GraphViz,
+Ditaa or Kroki, embedding citations and much more.
 
 This is a small scale alternative to Sweave, Rmarkdown, Knitr etc. It is
 essentially a wrapper for the [pantcl](https://github.com/mittelmark/pantcl) application
