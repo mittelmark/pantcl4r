@@ -5,7 +5,7 @@
 #' \description{
 #'     A function which calls the pantcl application inside of a R package.
 #' }
-#' \usage{ pantcl(infile, outfile=NULL, css=NULL,quiet=FALSE, mathjax=NULL, javascript=NULL,refresh=NULL,...) }
+#' \usage{ pantcl(infile, outfile=NULL, css=NULL, quiet=FALSE, mathjax=NULL, javascript=NULL, refresh=NULL, inline=NULL, ...) }
 #' \arguments{
 #'   \item{infile}{
 #'     an infile with Markdown code and embedded Programming language code
@@ -29,6 +29,10 @@
 #'   \item{refresh}{
 #'     should the HTML be refreshed every N seconds, values lower than 10 means no refreshment, default: NULL
 #'   }
+#'   \item{inline}{
+#'     should images and css files beeing inlined into the final HTML document to make it standalone, 
+#'     if not given or called with inline=TRUE,they are inlined, default: NULL
+#'   }
 #'   \item{\ldots}{kept for compatibility with pandoc, not used currently }
 #' }
 #' \details{
@@ -44,7 +48,7 @@
 #'   file.remove("hello.html")
 #' }
 
-pantcl <- function (infile, outfile=NULL,css=NULL,quiet=FALSE, mathjax=NULL, javascript=NULL, refresh=NULL,...) {
+pantcl <- function (infile, outfile=NULL, css=NULL, quiet=FALSE, mathjax=NULL, javascript=NULL, refresh=NULL, inline=NULL,...) {
     stopifnot(file.exists(infile))
     if (is.null(outfile)) {
         outfile=gsub("\\..md$",".html",infile)
@@ -72,7 +76,14 @@ pantcl <- function (infile, outfile=NULL,css=NULL,quiet=FALSE, mathjax=NULL, jav
     } else {
         refresh=paste("--refresh",refresh)
     }
-    cmdline = paste("set ::argv [list",infile, outfile,css,"--no-pandoc",mjx,jsc,refresh,"]")        
+    if (is.null(inline)) {
+        inline=""
+    } else if (inline) {
+        inline="--base64 true"
+    } else {
+        inline="--base64 false"
+    }
+    cmdline = paste("set ::argv [list",infile, outfile,css,"--no-pandoc",mjx,jsc,refresh,inline,"]")        
 
     tcltk::.Tcl("set ::quiet true")
     tcltk::.Tcl(paste(paste("cd",getwd())))
