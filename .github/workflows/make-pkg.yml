@@ -9,7 +9,7 @@ env:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22
 
     steps:       
     - uses: actions/checkout@v4
@@ -20,6 +20,7 @@ jobs:
         export VRS=`grep Version: DESCRIPTION | grep -oE '[.0-9]+'`
         echo "VRS=$VRS" >> $GITHUB_ENV
         sudo apt-get install texlive-latex-base texlive-fonts-extra texlive-fonts-recommended texlive-latex-extra
+        sudo apt-get install r-base
         sudo apt-get install xvfb ##graphviz plantuml
         export DISPLAY=:99
         Xvfb :99 -screen 0 1024x768x24 &
