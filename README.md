@@ -59,7 +59,7 @@ R console:
 
 ```
 install.packages(
-    "https://github.com/mittelmark/pantcl4r/releases/download/v0.6.0/pantcl4r_0.6.0.tar.gz",
+    "https://github.com/mittelmark/pantcl4r/releases/download/v0.6.1/pantcl4r_0.6.1.tar.gz",
     repos=NULL);
 ```
 
@@ -79,7 +79,19 @@ pantcl4r::pantcl("input.Rmd","output.html")
 
 Which will  create a file  _output.html_  where the R code chunks or chunks of
 the other languages within _input.html_ are evaluated and the results embedded
-into the output file if requested.
+into the output file if requested. 
+
+The package can be seen as a lightweight alternative to the rmarkdown or knitr
+packages.  In  contrast  to them you have embed  plots using the `png` and the
+`dev.off` commands within your Rmd document and then use Markdown image syntax
+to embed the link after the code block. 
+
+If the PNG image is created but not embedded  within your file, try to convert
+the  document  first to a Markdown  document and then call the pantcl  command
+again converting the Markdown to HTML with a second call like this:
+
+`pantcl('input.Rmd','output.md'); pantcl('output.md','output.html')`
+
 
 
 To install the latest development library you need the library 'remotes'.

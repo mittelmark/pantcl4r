@@ -41,13 +41,15 @@
   well embedding shell programs, or diagram code for GraphViz pr PlantUML can be embedded if the appropiate 
   tools are available. For a list of available tools which can be used see \url{https://github.com/mittelmark/pantcl}. 
  
-  The package can be seen as a lighweight alternative to the rmarkdown or knitr packages. In contrast to them you have  
-  embed plots using the \code{png} and the \code{dev.off} commands within your Rmd document and the use Markdown image syntax 
-  to embed the link.  
+  The package can be seen as a lightweight alternative to the rmarkdown or knitr packages. In contrast to them you have  
+  embed plots using the \code{png} and the \code{dev.off} commands within your Rmd document and then you use Markdown image syntax 
+  after the code block to embed the image.  
  
   If the PNG image is created but not embedded within your file, try to convert the document first 
-  to a Markdown document and then call the pantcl command again converting the Markdown to HTML with a second call like this: 
-  \code{pantcl('input.Rmd','output.md'); pantcl('output.md','output.html')} 
+  to a Markdown document and then call the pantcl command again converting the Markdown to HTML with 
+  a second call like this: 
+   
+      \code{pantcl('input.Rmd','output.md'); pantcl('output.md','output.html')} 
 } 
 \examples{ 
   print("pantcl running") 

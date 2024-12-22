@@ -20,3 +20,8 @@
 
 - adding javascript option for 'highligthjs' support
 - adding refresh option for HTML pages
+
+## 2024-12-22 Version 0.6.1
+
+- adding more documentation for the pantcl command
+- mentioning embedding png problem for direct conversion from Rmd to HTML
