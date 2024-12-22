@@ -3,7 +3,7 @@
 #' \alias{pantcl4r}
 #' \title{ perform literate programming }
 #' \description{
-#'     A function which calls the pantcl application inside of a R package.
+#'     Convert Markdown documents with R, Python, Octave or Digram code to HTML output.
 #' }
 #' \usage{ pantcl(infile, outfile=NULL, css=NULL, quiet=FALSE, mathjax=NULL, javascript=NULL, refresh=NULL, inline=NULL, ...) }
 #' \arguments{
@@ -36,12 +36,27 @@
 #'   \item{\ldots}{kept for compatibility with pandoc, not used currently }
 #' }
 #' \details{
-#'     Some more details ...
+#'   This function allows you to perform literate programming where you embed R, Python, Octave or Tcl code
+#'   into your Markdown documents and convert them later to HTML output. Beside of programming languages as 
+#'   well embedding shell programs, or diagram code for GraphViz pr PlantUML can be embedded if the appropiate
+#'   tools are available. For a list of available tools which can be used see \url{https://github.com/mittelmark/pantcl}.
+#'
+#'   The package can be seen as a lighweight alternative to the rmarkdown or knitr packages. In contrast to them you have 
+#'   embed plots using the \code{png\ and the \code{dev.off} commands within your Rmd document and the use Markdown image syntax
+#'   to embed the link. 
+#' 
+#'   If the PNG image is created but not embedded within your file, try to convert the document first
+#'   to a Markdown document and then call the pantcl command again converting the Markdown to HTML with a second call like this:
+#'   \code{pantcl('input.Rmd','output.md'); pantcl('output.md','output.html')}
 #' }
 #' \examples{
 #'   print("pantcl running")
+#'   ## equation and R example:
 #'   md="## Title\n\nHello World!\n\n\\\\[ E = mc^2 \\\\]\n\n```{r eval=TRUE}\nprint('Hello World!')\n```\n"
-#'   md = paste(md, "\n```tcl\nset x 1\nputs $x\n\n")
+#'   ## Tcl example
+#'   md = paste(md, "\n```{.tcl eval=TRUE}\nset x 1\nputs $x\n\n")
+#'   ## Kroki Diagram example
+#'   md = paste(md, "\n```{.kroki eval=TRUE,dia=\"graphviz\"}\ndigraph g { A -> B }\n```\n")
 #'   cat(md,file="hello.Rmd")
 #'   pantcl("hello.Rmd","hello.html",mathjax=TRUE,refresh=10,javascript="highlightjs")
 #'   file.remove("hello.Rmd")

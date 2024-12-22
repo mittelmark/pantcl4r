@@ -23,7 +23,7 @@ jobs:
         export DISPLAY=:99
         Xvfb :99 -screen 0 1024x768x24 &
         mkdir ~/R
-        Rscript -e '.libPaths(c("~/R",.libPaths()));install.packages("https://github.com/mittelmark/pantcl4r/releases/download/v0.4.0/pantcl4r_0.6.0.tar.gz", repos=NULL);'
+        Rscript -e '.libPaths(c("~/R",.libPaths()));install.packages("https://github.com/mittelmark/pantcl4r/releases/download/v0.6.0/pantcl4r_0.6.0.tar.gz", repos=NULL);'
         echo '.libPaths(c("~/R",.libPaths()))' > ~/.Rprofile
         make build
         make check
