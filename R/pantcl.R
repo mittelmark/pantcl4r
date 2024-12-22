@@ -42,7 +42,7 @@
 #'   tools are available. For a list of available tools which can be used see \url{https://github.com/mittelmark/pantcl}.
 #'
 #'   The package can be seen as a lighweight alternative to the rmarkdown or knitr packages. In contrast to them you have 
-#'   embed plots using the \code{png\ and the \code{dev.off} commands within your Rmd document and the use Markdown image syntax
+#'   embed plots using the \code{png} and the \code{dev.off} commands within your Rmd document and the use Markdown image syntax
 #'   to embed the link. 
 #' 
 #'   If the PNG image is created but not embedded within your file, try to convert the document first
