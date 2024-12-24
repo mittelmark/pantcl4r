@@ -340,7 +340,7 @@ lipsum <- function (type=1, paragraphs=1,lang="latin") {
     tcltk::.Tcl("package require tclfilters")
     tools::vignetteEngine("pantcl4r",
                           package=pkgname,
-                          weave = function (file, ...) { pantcl4r::pantcl(file,...) },
+                          weave = function (file, ...) { pantcl4r::pantcl(file,...,mathjax=TRUE) },
                           tangle=function (file, ...) { pantcl4r::ptangle(file,...) },
                           pattern="[.][PpTtRr]md$")
 }
