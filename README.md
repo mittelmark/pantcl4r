@@ -3,7 +3,7 @@
 [![Release](https://img.shields.io/github/v/release/mittelmark/pantcl4r.svg?label=current+release)](https://github.com/mittelmark/pantcl4r/releases)
 [![license](https://img.shields.io/badge/license-MIT-lightgray.svg)](https://opensource.org/license/mit)
 ![Build](https://github.com/mittelmark/pantcl4r/workflows/Makefile%20Package/badge.svg)
-![filesize](https://img.shields.io/badge/file%20size:-348kb-malachite)
+![filesize](https://img.shields.io/badge/file%20size:-349kb-malachite)
 ![downloads all](https://img.shields.io/github/downloads/mittelmark/pantcl4r/total)
 ![downloads latest](https://img.shields.io/github/downloads/mittelmark/pantcl4r/latest/total)
 
@@ -60,7 +60,7 @@ R console:
 
 ```
 install.packages(
-    "https://github.com/mittelmark/pantcl4r/releases/download/v0.6.1/pantcl4r_0.6.1.tar.gz",
+    "https://github.com/mittelmark/pantcl4r/releases/download/v0.6.2/pantcl4r_0.6.2.tar.gz",
     repos=NULL);
 ```
 
