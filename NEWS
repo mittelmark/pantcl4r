@@ -25,3 +25,7 @@
 
 - adding more documentation for the pantcl command
 - mentioning embedding png problem for direct conversion from Rmd to HTML
+
+## 2024-12-22 Version 0.6.2
+
+- fixing ampersand issue in source code
